@@ -1,5 +1,12 @@
 {% extends 'App/base.html' %}
+{% load tags %}
 
 {% block content %}
-<p>Hi</p>
+<section id="main">
+
+    {% if logged_in %}
+    <p>Welcome back {% get_username request %}</p>
+    {% endif %}
+
+</section>
 {% endblock %}

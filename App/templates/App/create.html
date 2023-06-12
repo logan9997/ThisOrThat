@@ -1,0 +1,47 @@
+{% extends 'App/base.html' %}
+
+{% block content %}
+<section id="main">
+
+    <form id="create-post-form" action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="create-post-section">
+            <input onfocus="remove_placeholder_text(this)" id="title-input" type="text" name="title" placeholder="Title">
+        </div>
+
+        <div id="images-descriptions-container" class="create-post-section">
+            <div id="option-one" class="image-description-contianer">
+                <div class="label-input-container">
+                    <label for="image_one">Image</label>
+                    <input type="file" name="image_one">
+                </div>
+                <div class="label-input-container">
+                    <label for="description_one">Description 1</label>
+                    <textarea class="description-input" name="description_one"></textarea>
+                </div>
+            </div>
+
+            <div id="option-two" class="image-description-contianer">
+                <div class="label-input-container">
+                    <label for="image_two">Image</label>
+                    <input type="file" name="image_two">
+                </div>
+                <div class="label-input-container">
+                    <label for="description_two">Description 2</label>
+                    <textarea class="description-input" name="description_two" ></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="tags-container" class="create-post-section">
+            <div id="created-tags"></div>
+            <input maxlength="20" oninput="seperate_tags(this)" id="tags-input" type="text" name="tags" placeholder="Tags">
+        </div>
+
+        <div class="create-post-section">
+            <input type="submit" value="Post!">
+        </div>
+    </form>
+
+</section>
+{% endblock %}

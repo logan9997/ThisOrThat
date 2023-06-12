@@ -2,22 +2,27 @@
 <html lang="en">
 <head>
     {% load static %}
+    {% load tags %}
+    {% add_login_status_to_context request %}
     <link rel="stylesheet" href="{% static 'App/styles.css' %}">
+    <script src="{% static 'App/script.js' %}"></script>
     <title>{{title}}</title>
 </head>
 <body>
-
     <nav>
         <ul>
-            <li>Home</li>
-            <li>Search</li>
-            <li>Login</li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'search' %}">Search</a></li>
+            {% if not logged_in %}
+            <li><a href="{% url 'login' %}">Login</a></li>
             <li>Sign Up</li>
+            {% else %}
+            <li><a href="{% url 'create' %}">Create</a></li>
+            {% endif %}
         </ul>
     </nav>
 
     {% block content %}
-
     {% endblock %}
 </body>
 </html>
