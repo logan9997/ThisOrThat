@@ -9,6 +9,7 @@ PASSWORD_LENGTH = 24
 DESCRIPTION_LENGTH = 500
 TAGS_LENGTH = 120
 STATUS_LENGTH = 6
+TITLE_LENGTH = 50
 
 #VOTE
 OPTION_LENGTH = 1
@@ -23,10 +24,11 @@ class User(models.Model):
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=TITLE_LENGTH)
     description1 = models.CharField(max_length=DESCRIPTION_LENGTH)
     description2 = models.CharField(max_length=DESCRIPTION_LENGTH)
-    image1 = models.ImageField()
-    image2 = models.ImageField()
+    image1 = models.ImageField(null=True)
+    image2 = models.ImageField(null=True)
     status = models.CharField(max_length=STATUS_LENGTH, choices=(
         ('Open', 'Open'), ('Closed', 'Closed')
     ))
