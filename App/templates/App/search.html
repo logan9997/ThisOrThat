@@ -1,7 +1,37 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section id="main">
+{% load tags %}
+<section class="main" id="search-main">
+
+    {% get_tags_list request as tags_list %}
+        {{ tags_list|json_script:'tags-list' }}
+
+    {{ MAX_SEARCH_SUGGESTIONS|json_script:'max-search-suggestions' }}
+
+    <div id="search-main-container">
+        <form id="tags-search-form" action="{% url 'search' %}" method="GET">
+            <input oninput="search_suggestions()" id="tags-search" type="text" name="tag" placeholder="Search For Tags">
+        </form>
+
+        <div id="search-suggestions-container"></div>
+    </div>
+
+    {% if posts|length != 0 %}
+    <div id="trending-questions">
+        <h2 id="trending-questions-title">Trending Questions!</h2>
+        <div id="posts-container">
+            {% for post in posts %}
+                {% include 'App/templateblocks/post_preview.html' %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {% else %}
+    <div id="no-posts-container">
+        <p>No posts for {{request.GET.tag}}</p>
+    </div>
+    {% endif %}
 
 </section>
 {% endblock %}

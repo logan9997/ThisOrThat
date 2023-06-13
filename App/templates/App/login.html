@@ -1,7 +1,7 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section id="main">
+<section class="main" id="login-main">
 
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}

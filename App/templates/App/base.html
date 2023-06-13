@@ -15,9 +15,10 @@
             <li><a href="{% url 'search' %}">Search</a></li>
             {% if not logged_in %}
             <li><a href="{% url 'login' %}">Login</a></li>
-            <li>Sign Up</li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
             {% else %}
             <li><a href="{% url 'create' %}">Create</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
             {% endif %}
         </ul>
     </nav>

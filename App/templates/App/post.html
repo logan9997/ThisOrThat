@@ -1,7 +1,13 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section id="main">
+<section class="main" id="post-main">
+
+    {% include 'App/templateblocks/post_container.html' with show_votes=True %}
+
+    {% if vote_error_msg != None %}
+    <p>{{vote_error_msg}}</p>
+    {% endif %}
 
 </section>
 {% endblock %}
