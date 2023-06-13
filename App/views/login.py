@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ..forms import Login
 from ..models import User
-from ..config import USERNAME_LENGTH, PASSWORD_LENGTH
+from ..utils import get_field_length_error
 
 def login(request):
 
@@ -32,13 +32,3 @@ def login(request):
     return render(request, 'App/login.html', context=context)
 
 
-def get_field_length_error(error:str) -> str:
-    '''
-    Return which field is has too many characters from form.errors
-    '''
-    if str(USERNAME_LENGTH) in error:
-        return f'Username is too long ({USERNAME_LENGTH} Chars)'
-    
-    if str(PASSWORD_LENGTH) in error:
-        return f'Password is too long ({PASSWORD_LENGTH} Chars)'
-    return ''
