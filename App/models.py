@@ -1,6 +1,6 @@
 from django.db import models
 from .config import (
-    MAX_USERNAME_LENGTH, MAX_EMAIL_LENGTH, MAX_PASSWORD_LENGTH,
+    MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_STATUS_LENGTH,
     MAX_TAGS_LENGTH, MAX_OPTION_LENGTH
 )
@@ -34,4 +34,3 @@ class Vote(models.Model):
     option = models.CharField(max_length=MAX_OPTION_LENGTH, choices=(
         ('1', '1'), ('2', '2')
     ))
-
