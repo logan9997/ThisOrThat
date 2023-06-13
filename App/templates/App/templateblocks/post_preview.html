@@ -1,0 +1,13 @@
+<div class="post-preview">
+    <div class="votes-container">
+        <p class="votes">Votes : {{post.votes}}</p>
+    </div>
+    <div class="title-tags-container">
+        <a href="{% url 'post' post.post_id %}" class="title">{{post.title}}</a>
+        <p class="tags">{{post.tags}}</p>
+    </div>
+    <div class="date-posted-username-container">
+        <p class="date-posted">{{post.date_posted}}</p>
+        <p class="username">{{post.user__username}}</p>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% load tags %}
+<div class="post-container">
+    <h2 class="post-title">{{post.title}}</h2>
+
+    <div class="options-container">
+        <div id="option-one" class="options">
+            <img src="{{post.image_one}}" alt="{{post.image_one}}">
+            <p class="description">{{post.description_one}}</p>
+        </div>
+
+        <div id="option-two" class="options">
+            <img src="{{post.image_two}}" alt="{{post.image_two}}">
+            <p class="description">{{post.description_two}}</p>
+        </div>
+    </div>
+
+    <p class="tags">{{post.tags}}</p>
+    <p class="date-posted">{{post.date_posted}}</p>
+    {% if show_votes and request.session|get:'user_id,-1' != '-1' %}
+        <form class="votes" action="{% url 'vote' post.post_id %}" method="post">
+            {% csrf_token %}
+            <button {% if current_vote == '1' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="1">1</button>
+            <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">2</button>
+        </form>
+    {% endif %}
+</div>
