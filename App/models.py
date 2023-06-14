@@ -2,7 +2,7 @@ from django.db import models
 from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_STATUS_LENGTH,
-    MAX_TAGS_LENGTH, MAX_OPTION_LENGTH
+    MAX_TAGS_LENGTH, MAX_OPTION_LENGTH, MAX_MAIN_DESCRIPTION_LENTGH
 )
 
 
@@ -11,13 +11,14 @@ class User(models.Model):
     username = models.CharField(max_length=MAX_USERNAME_LENGTH)
     password = models.CharField(max_length=MAX_PASSWORD_LENGTH)
 
-
+  
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=MAX_TITLE_LENGTH)
-    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH)
-    description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH)
+    main_description = models.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH)
+    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
+    description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
     image_one = models.ImageField(null=True, blank=True, upload_to='images/')
     image_two = models.ImageField(null=True, blank=True, upload_to='images/')
     status = models.CharField(max_length=MAX_STATUS_LENGTH, default='Open', choices=(
