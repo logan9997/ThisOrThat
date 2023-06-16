@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     home, post, login, create,
-    search, signup, logout, vote
+    search, signup, logout, vote,
+    comment
 )
 
 urlpatterns = [
@@ -10,6 +11,17 @@ urlpatterns = [
     ),
     path(
         'post/<int:post_id>/', post.post, name='post'
+    ),
+    path(
+        'comment/<int:post_id>/', comment.comment, name='comment'
+    ),
+    path(
+        'comment_vote/<int:comment_id>/<int:post_id>/', comment.comment_vote,
+        name='comment_vote'
+    ),
+    path(
+        'delete_comment/<int:comment_id>/<int:post_id>/', 
+        comment.delete_comment, name='delete_comment'
     ),
     path(
         'login/', login.login, name='login'
