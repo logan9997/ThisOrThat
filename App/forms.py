@@ -1,7 +1,8 @@
 from django import forms
 from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_TITLE_LENGTH,
-    MAX_DESCRIPTION_LENGTH, MAX_TAGS_LENGTH, MAX_TAGS, MAX_OPTION_LENGTH
+    MAX_DESCRIPTION_LENGTH, MAX_TAGS_LENGTH, MAX_TAG_LENGTH,
+    MAX_MAIN_DESCRIPTION_LENTGH, MAX_COMMENT_LENGTH
 )
 
 class Login(forms.Form):
@@ -23,6 +24,7 @@ class SignUp(forms.Form):
 
 class CreatePost(forms.Form):
     title = forms.CharField(max_length=MAX_TITLE_LENGTH)
+    main_description = forms.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH)
     description_one = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH)
     description_two = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH)
     image_one = forms.ImageField(required=False)
@@ -31,10 +33,24 @@ class CreatePost(forms.Form):
 
 
 class TagSearch(forms.Form):
-    tag = forms.CharField(max_length=MAX_TAGS_LENGTH//MAX_TAGS)
+    tag = forms.CharField(max_length=MAX_TAG_LENGTH)
 
 
 class VoteOption(forms.Form):
     vote_option = forms.ChoiceField(choices=(
         ('1', '1'), ('2', '2')
     ))
+
+
+class Comment(forms.Form):
+    comment = forms.CharField(max_length=MAX_COMMENT_LENGTH)
+
+
+class CommentVote(forms.Form):
+    vote_option = forms.ChoiceField(choices=(
+        ('Up', 'Up'), ('Down', 'Down')
+    ))
+
+
+class DeleteComment(forms.Form):
+    delete_comment = forms.BooleanField()
