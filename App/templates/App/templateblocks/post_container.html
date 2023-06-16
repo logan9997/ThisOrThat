@@ -2,6 +2,8 @@
 <div class="post-container">
     <h2 class="post-title">{{post.title}}</h2>
 
+    <p class="main-description">{{post.main_description}}</p>
+
     <div class="options-container">
         <div id="option-one" class="options">
             <img src="{{post.image_one}}" alt="{{post.image_one}}">
@@ -15,12 +17,14 @@
     </div>
 
     <p class="tags">{{post.tags}}</p>
-    <p class="date-posted">{{post.date_posted}}</p>
-    {% if show_votes and request.session|get:'user_id,-1' != '-1' %}
+    <p class="username">{{post.username}}</p>
+    {% if show_votes %}
         <form class="votes" action="{% url 'vote' post.post_id %}" method="post">
             {% csrf_token %}
             <button {% if current_vote == '1' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="1">1</button>
+            <p class="vote-label">- Vote -</p>
             <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">2</button>
         </form>
     {% endif %}
+    <p class="date-posted">{{post.date_posted}}</p>
 </div>

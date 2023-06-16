@@ -28,12 +28,11 @@ def get_username(request) -> str:
     return ''
 
 @register.simple_tag
-def get_tags_list(request):
+def get_tags_list():
     '''
     Return a list of unique tags from the database for search suggestions
     '''
-    user_id = request.session.get('user_id', -1)
-    tag_strings = Post.objects.filter(~Q(user_id=user_id)).values_list('tags', flat=True)
+    tag_strings = Post.objects.all().values_list('tags', flat=True)
 
     unique_tags = []
     for tag_string in tag_strings:
@@ -45,6 +44,7 @@ def get_tags_list(request):
         for tag in tags:
             if tag not in unique_tags:
                 unique_tags.append(tag)
+    
     return unique_tags
 
 

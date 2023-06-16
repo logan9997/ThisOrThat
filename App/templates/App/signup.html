@@ -5,9 +5,9 @@
 
     <form action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <input type="password" name="confirm_password">
+        <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
+        <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
+        <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
         <input type="submit" value="Sign Up!">
     </form>
 

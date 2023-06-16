@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from ..forms import CreatePost
 from ..models import Post
+from ..utils import FormRestrictions  
 
 def create(request):
 
@@ -22,5 +23,9 @@ def create(request):
         else:
             print(form.errors)
 
-    context = {}
+    context = {
+        'input_restrictions': FormRestrictions().create_post()
+    }
     return render(request, 'App/create.html', context=context)
+
+

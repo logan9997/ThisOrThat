@@ -1,6 +1,7 @@
 <div class="post-preview">
     <div class="votes-container">
         <p class="votes">Votes : {{post.votes}}</p>
+        <p class="comments">Comments : {{post.comments}}</p>
     </div>
     <div class="title-tags-container">
         <a href="{% url 'post' post.post_id %}" class="title">{{post.title}}</a>

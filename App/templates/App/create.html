@@ -4,40 +4,45 @@
 <section class="main" id="search-main">
 
 
-
     <form onsubmit="return_tags()" id="create-post-form" action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="create-post-section">
-            <input onfocus="remove_placeholder_text(this)" id="title-input" type="text" name="title" placeholder="Title">
+            <input maxlength="{{input_restrictions.title_max_length}}" onfocus="remove_placeholder_text(this)" 
+            id="title-input" type="text" name="title" placeholder="Title">
+        </div>
+
+        <div id="main-description-container" class="create-post-section">
+            <label for="main-description">Main Description</label>
+            <textarea class="description-input" name="main_description" maxlength="{{input_restrictions.main_description_max_length}}"></textarea>
         </div>
 
         <div id="images-descriptions-container" class="create-post-section">
-            <div id="option-one" class="image-description-contianer">
+            {% with 'one two' as list %}
+            {% for option in list.split %}
+            <div id="option-{{option}}" class="image-description-contianer">
                 <div class="label-input-container">
-                    <label for="image_one">Image</label>
-                    <input type="file" name="image_one">
+                    <input accept="image/*" oninput="preview_uploaded_image(event, '{{option}}'), show_remove_image_button('{{option}}')" id="image-{{option}}-input" type="file" name="image_{{option}}">
+                    <label onclick="click_file_input('{{option}}')" class="upload-image-label" for="image_{{option}}">Upload Image</label>
+                    <button class="remove-image-button" id="remove-image-{{option}}-button" 
+                        onclick="hide_element(`remove-image-{{option}}-button`), hide_element(`image-{{option}}-preview`)" 
+                        type="button">Remove Image
+                    </button>
                 </div>
+                <img src="../../media/images/JIC_photo.jpeg" class="preview-image" id="image-{{option}}-preview">
                 <div class="label-input-container">
-                    <label for="description_one">Description 1</label>
-                    <textarea class="description-input" name="description_one"></textarea>
-                </div>
-            </div>
-
-            <div id="option-two" class="image-description-contianer">
-                <div class="label-input-container">
-                    <label for="image_two">Image</label>
-                    <input type="file" name="image_two">
-                </div>
-                <div class="label-input-container">
-                    <label for="description_two">Description 2</label>
-                    <textarea class="description-input" name="description_two" ></textarea>
+                    <label for="description_{{option}}">Description {{option}}</label>
+                    <textarea maxlength="{{input_restrictions.description_max_length}}" 
+                    class="description-input" name="description_{{option}}"></textarea>
                 </div>
             </div>
+            {% endfor %}
+            {% endwith %}
         </div>
 
         <div id="tags-container" class="create-post-section">
             <div id="created-tags"></div>
-            <input maxlength="20" oninput="seperate_tags(this)"  id="tags-input" type="text" name="tags" placeholder="Tags">
+            <input maxlength="{{input_restrictions.tag_max_length}}" oninput="seperate_tags(this)" 
+            id="tags-input" type="text" name="tags" placeholder="Tags">
         </div>
 
         <div class="create-post-section">
