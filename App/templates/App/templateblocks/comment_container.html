@@ -1,0 +1,29 @@
+<div class="comment">
+    {% if show_vote_form %}
+    <form class="comment-vote-form" action="{% url 'comment_vote' comment.comment_id post.post_id %}" method="POST">
+        {% csrf_token %}
+        <input {% if comment.current_vote == 'Up' %}style="background-color:green;"{% endif %} type="submit" value="Up" name="vote_option">
+        <p>{{comment.votes}}</p>
+        <input {% if comment.current_vote == 'Down' %}style="background-color:green;"{% endif %} type="submit" value="Down" name="vote_option">
+    </form>
+    {% endif %}
+
+    <p class="comment-content">{{comment.comment}}</p>
+
+    <div class="username-date-delete-container">
+        <p>{{comment.username}}</p>
+        <p>{{comment.date_posted}}</p>
+
+        {% if comment.user_id == request.session.user_id %}
+            {% if request.path == '/' %}
+            <form action="{% url 'delete_comment' comment.comment_id comment.post_id  %}" method="POST">
+            {% else %}
+            <form action="{% url 'delete_comment' comment.comment_id post.post_id  %}" method="POST">
+            {% endif %}
+            {% csrf_token %}
+                <label for="delete_comment">Delete</label>
+                <input class="delete-comment-button" type="checkbox" name="delete_comment" onclick="form.submit()">
+            </form>
+        {% endif %}
+    </div>
+</div>
