@@ -4,14 +4,15 @@
 {% load tags %}
 <section class="main" id="search-main">
 
-    {% get_tags_list request as tags_list %}
+    {% get_tags_list as tags_list %}
         {{ tags_list|json_script:'tags-list' }}
 
     {{ MAX_SEARCH_SUGGESTIONS|json_script:'max-search-suggestions' }}
 
     <div id="search-main-container">
         <form id="tags-search-form" action="{% url 'search' %}" method="GET">
-            <input oninput="search_suggestions()" id="tags-search" type="text" name="tag" placeholder="Search For Tags">
+            <input onfocusout="change_element_display('search-suggestions-container', 'none')" oninput="search_suggestions()" 
+            onfocus="change_element_display('search-suggestions-container', 'block')" id="tags-search" type="text" name="tag" placeholder="Search For Tags">
         </form>
 
         <div id="search-suggestions-container"></div>
