@@ -2,7 +2,8 @@ from django.db import models
 from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_STATUS_LENGTH,
-    MAX_TAGS_LENGTH, MAX_OPTION_LENGTH, MAX_MAIN_DESCRIPTION_LENTGH
+    MAX_TAGS_LENGTH, MAX_MAIN_DESCRIPTION_LENTGH,
+    MAX_COMMENT_LENGTH
 )
 
 
@@ -28,10 +29,27 @@ class Post(models.Model):
     tags = models.CharField(max_length=MAX_TAGS_LENGTH)
 
 
-class Vote(models.Model):
+class PostVote(models.Model):
     vote_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    option = models.CharField(max_length=MAX_OPTION_LENGTH, choices=(
+    option = models.CharField(max_length=1, choices=(
         ('1', '1'), ('2', '2')
+    ))
+
+
+class Comment(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=MAX_COMMENT_LENGTH)
+    date_posted = models.DateField(auto_now_add=True)
+
+
+class CommentVote(models.Model):
+    comment_vote_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    option = models.CharField(max_length=4, choices=(
+        ('Up', 'Up'), ('Down', 'Down')
     ))
