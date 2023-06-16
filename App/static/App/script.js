@@ -8,7 +8,7 @@ function return_tags() {
     var tags_string = ''
 
     for (let i = 0; i < tags_container.length; i ++) {
-        tags_string += tags_container[i].innerHTML
+        tags_string += tags_container[i].innerHTML.toLowerCase()
         if (i != tags_container.length - 1) {
             tags_string += ', '
         }
@@ -54,7 +54,7 @@ function seperate_tags(element) {
         var input_width = element.style.width
         input_width = input_width.replace('%', '')
         input_width = parseInt(input_width)
-        input_width = `${(input_width - tags_width) * 2}%`
+        input_width = `${(input_width - tags_width) / 2}rem`
 
         element.style.width = input_width
 
@@ -85,7 +85,35 @@ function search_suggestions() {
             matches += 1
         }
     }
+}
 
+function preview_uploaded_image(event, option) {
+    var output = document.getElementById(`image-${option}-preview`);
+    output.style.display = 'inline';
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) 
+    }
+};
 
+function show_remove_image_button(option) {
+    document.getElementById(`remove-image-${option}-button`).style.display = 'block'
+    document.getElementById(`image-${option}-input`).value = ''
+}
 
+function click_file_input(option) {
+    document.getElementById(`image-${option}-input`).click()
+}
+
+function change_element_display(element, display) {
+    document.getElementById(element).style.display = display
+} 
+
+function style_textareas_when_scroll_bar_visible() {
+    var textareas = document.getElementsByTagName('textarea')
+    for (let i = 0; i < textareas.length; i ++) {
+        if (textareas[i].hasScrollBar()) {
+            textareas[i].style.borderRadius = '0'
+        }
+    }
 }
