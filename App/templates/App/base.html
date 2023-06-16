@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{% static 'App/styles.css' %}">
     <script src="{% static 'App/script.js' %}"></script>
     <title>{{title}}</title>
+
+    <script>
+        // Preserve scroll position on reload
+        window.onload = function() {
+        var scroll_pos = localStorage.getItem('document-scroll-pos')
+        window.scrollTo(0,scroll_pos)
+    }
+
+    window.onbeforeunload = function() {
+        var scroll_pos = window.scrollY
+        localStorage.setItem('document-scroll-pos', scroll_pos)
+    }
+</script>
 </head>
 <body>
     <nav>
@@ -19,6 +32,7 @@
             {% else %}
             <li><a href="{% url 'create' %}">Create</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li>{% get_username request %}</li>
             {% endif %}
         </ul>
     </nav>
