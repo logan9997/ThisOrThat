@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from ..forms import SignUp
 from ..models import User
-from ..utils import is_password_strong_enough, get_field_length_error
+from ..utils import (
+    is_password_strong_enough, get_field_length_error, 
+    FormRestrictions
+)
 
 def signup(request):
 
@@ -35,5 +38,6 @@ def signup(request):
 
     context = {
         'signup_error_msg': signup_error_msg,
+        'input_restrictions': FormRestrictions().login_signup()
     }
     return render(request, 'App/signup.html', context=context)

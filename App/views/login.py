@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ..forms import Login
 from ..models import User
-from ..utils import get_field_length_error
+from ..utils import get_field_length_error, FormRestrictions
 
 def login(request):
 
@@ -28,6 +28,7 @@ def login(request):
     context = {
         'title': 'Login',
         'login_error_msg':login_error_msg,
+        'input_restrictions': FormRestrictions().login_signup()
     }
     return render(request, 'App/login.html', context=context)
 
