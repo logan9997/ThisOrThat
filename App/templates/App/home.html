@@ -3,10 +3,33 @@
 
 {% block content %}
 <section class="main" id="home-main">
-
     {% if logged_in %}
-    <p>Welcome back {% get_username request %}</p>
+    <p id="logged-in-msg">Welcome back {% get_username request %}</p>
     {% endif %}
+
+    <div id="your-comments-and-posts">
+        {% if posts|length != 0 %}
+        <div id="posts-activity">
+            <h2 class="activity-h2">Your Posts</h2>
+            {% for post in posts %}
+                {% include 'App/templateblocks/post_preview.html' %}
+            {% endfor%}
+        </div>
+        {% else %}
+        <div id="create-your-first-post">
+            <h2 class="activity-h2">Create your first post</h2>
+        </div>
+        {% endif%}
+
+        {% if comments|length != 0 %}
+        <div id="comments-activity">
+            <h2 class="activity-h2">Your Comments</h2>
+            {% for comment in comments %}
+                {% include 'App/templateblocks/comment_container.html' with show_vote_form=False %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
 
 </section>
 {% endblock %}
