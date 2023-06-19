@@ -61,6 +61,12 @@ function seperate_tags(element) {
     }
 }
 
+function remove_tag_param() {
+    var newURL = location.href.split("?")[0];
+    window.history.pushState('object', document.title, newURL);
+    location.reload()
+}
+
 function search_suggestions() {
     var input = document.getElementById('tags-search')
     var tags = JSON.parse(document.getElementById('tags-list').textContent)
@@ -74,15 +80,39 @@ function search_suggestions() {
             search_suggestions_container.removeChild(search_suggestions_container.lastChild)
         } 
     }
+    search_suggestions_container.style.padding = '0'
+    search_suggestions_container.style.display = 'none'
     
     // create new containers for matched tags
     var matches = 0 
     for (let i = 0; i < tags.length; i ++ ) {
         if (tags[i].includes(input.value.toLowerCase()) && input.value != '') {
-            var node = document.createElement('div')
+            var node = document.createElement('a')
+            var tag = tags[i]
+            var current_url = window.location.href
+
+            if (tag[0] == ' ') {
+                tag = tag.slice(1, tag.length)
+            }
+
+            if (current_url.includes('?')) {
+                var question_mark_index = current_url.indexOf('?')
+                current_url = current_url.slice(0, question_mark_index)
+            }
+
+            node.href = `${current_url}?tag=${tag}`
             node.innerHTML = tags[i]
             search_suggestions_container.appendChild(node)
             matches += 1
+        }
+        if (matches >= max_search_suggestions) {
+            break
+        }
+        if (matches > 0) {
+            search_suggestions_container.style.display = 'block'
+            search_suggestions_container.style.padding = '0.1rem'
+            search_suggestions_container.style.border = '0.1rem black solid'
+            search_suggestions_container.style.borderTop = 'none'
         }
     }
 }
