@@ -8,7 +8,7 @@ from ..forms import (
     CommentVote as CommentVoteForm,
     DeleteComment
 )
-from ..utils import Vote
+from ..utils import Vote, text_filter
 
 def comment(request, post_id):
 
@@ -18,6 +18,7 @@ def comment(request, post_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.cleaned_data.get('comment')
+            comment = text_filter(comment)
 
             new_comment = CommentModel(
                 post_id=post_id,
@@ -36,7 +37,7 @@ def comment_vote(request, comment_id, post_id):
     if request.method == 'POST':
         form = CommentVoteForm(request.POST)
         if form.is_valid():
-           Vote().vote_handler(
+           Vote.vote_handler(
                request, 
                form, 
                comment_id, 

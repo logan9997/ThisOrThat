@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ..forms import CreatePost
 from ..models import Post
-from ..utils import FormRestrictions  
+from ..utils import FormRestrictions , text_filter
 
 def create(request):
 
@@ -12,6 +12,10 @@ def create(request):
     if request.method == 'POST':
         form = CreatePost(request.POST, request.FILES)
         if form.is_valid():
+
+            for key, value in form.cleaned_data.items():
+                if 'image' not in key:
+                    form.cleaned_data[key] = text_filter(value)
             
             new_post = Post(
                 status='Open',
@@ -24,7 +28,7 @@ def create(request):
             print(form.errors)
 
     context = {
-        'input_restrictions': FormRestrictions().create_post()
+        'input_restrictions': FormRestrictions.create_post()
     }
     return render(request, 'App/create.html', context=context)
 
