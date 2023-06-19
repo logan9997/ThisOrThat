@@ -26,6 +26,10 @@ class Manager():
             }          
         return credentials
     
-    def get_values(self, *args) -> dict:
+    def get_items(self, *args) -> dict:
         values = {arg : os.getenv(arg) for arg in args}
         return values
+    
+    def get_key(self, key) -> dict:
+        return os.getenv(key)
+    
