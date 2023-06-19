@@ -1,3 +1,6 @@
+import requests
+import json
+
 from password_strength import PasswordPolicy
 from django.db.models import Model
 from django.forms import Form
@@ -9,10 +12,11 @@ from .config import (
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_TAG_LENGTH, 
     MAX_MAIN_DESCRIPTION_LENTGH
 )
+from environment_manager import Manager
 
 class FormRestrictions:
 
-    def create_post(self) -> dict:
+    def create_post() -> dict:
         restrictions = {
             'title_max_length': MAX_TITLE_LENGTH,
             'main_description_max_length': MAX_MAIN_DESCRIPTION_LENTGH,
@@ -21,7 +25,7 @@ class FormRestrictions:
         }
         return restrictions
     
-    def login_signup(self):
+    def login_signup():
         restrictions = {
             'username_max_length': MAX_USERNAME_LENGTH,
             'password_max_length': MAX_PASSWORD_LENGTH
@@ -31,7 +35,7 @@ class FormRestrictions:
 
 class Vote:
 
-    def vote_handler(self, request, form:Form, post_id:int, user_id:int, model:Model):
+    def vote_handler(request, form:Form, post_id:int, user_id:int, model:Model):
         '''
         Handle voting for votes on comments or posts.
         - form = VoteOption / CommentVote
@@ -82,6 +86,62 @@ class Vote:
         )
         new_vote.save()
     
+
+class Sort:
+
+    def sort(request, post_type:str, iterable:list) -> tuple[list, str]:
+        '''
+        Sort comments or posts based on the sort field and order set in 
+        request.session after sort.py is called.
+        - post_type = 'comments' / 'posts'
+        - iterable = comments / posts
+        '''
+        if current_sort := request.session.get(f'{post_type}_sort_option'):
+            sort_field:str = current_sort.split('-')[0]
+            sort_order:bool = current_sort.split('-')[1] == 'True'
+            iterable = sorted(iterable, key=lambda x: x[sort_field], reverse=sort_order)
+        return iterable
+
+    def get_current_sort_order(request, post_type) -> str:
+        '''
+        Return the current sort order for either posts or comments
+        '''
+        return request.session.get(f'{post_type}_sort_option')
+
+    def sort_dropdown_options(options:list, selected_option:str) -> None:
+        '''
+        Swap element 0 with element at the index of selected_option in a list
+        of dropdown options
+        '''
+        selected_option_index = next(
+            (i for i, _dict in enumerate(options) if _dict['value'] == selected_option)
+        , False)
+
+        if not selected_option_index:
+            return
+
+        options[0], options[selected_option_index] = options[selected_option_index], options[0]
+    
+
+def page_boundaires(page:int, max_pages:int) -> int:
+    try:
+        page = int(page)
+    except:
+        return 1
+
+    if page < 1:
+        return 1
+    if page > max_pages:
+        return max_pages
+    return page
+
+def text_filter(text) -> str:
+    '''
+    Filter out any profanities from text inputs 
+    '''
+    api_url = f'https://api.api-ninjas.com/v1/profanityfilter?text={text}'
+    response = requests.get(api_url, headers={'X-Api-Key': Manager().get_key('TEXT_FILTER_API_KEY')})
+    return json.loads(response.text).get('censored')
 
 def is_image_file_extension_valid(image_path:str) -> bool:
     '''
