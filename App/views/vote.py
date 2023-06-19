@@ -15,7 +15,7 @@ def vote(request, post_id:int):
         form = VoteOption(request.POST)
 
         if form.is_valid():
-            Vote().vote_handler(
+            Vote.vote_handler(
                 request, 
                 form, 
                 post_id, 

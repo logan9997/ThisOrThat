@@ -38,6 +38,6 @@ def signup(request):
 
     context = {
         'signup_error_msg': signup_error_msg,
-        'input_restrictions': FormRestrictions().login_signup()
+        'input_restrictions': FormRestrictions.login_signup()
     }
     return render(request, 'App/signup.html', context=context)

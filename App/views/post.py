@@ -4,7 +4,7 @@ from ..models import Post, PostVote
 from ..utils import (
     is_image_file_extension_valid
 )
-from ..sql_queries import Query
+from ..sql_queries import Post as PostQuery
 
 def post(request, post_id):
 
@@ -32,40 +32,7 @@ def post(request, post_id):
         else:
             post[image] = '../../media/images/empty_post_image.png'
 
-    comments = Query().select(sql=f'''
-        SELECT comment, CO.comment_id, date_posted, US.user_id, username, (
-            SELECT option 
-            FROM "App_commentvote" CV 
-            WHERE user_id = {user_id}
-                AND CV.comment_id = CO.comment_id
-        ) AS "option", (
-            (
-                SELECT COUNT(*) 
-                FROM "App_commentvote" CV 
-                WHERE option='Up' 
-                    AND CV.comment_id = CO.comment_id
-            ) - (
-                SELECT COUNT(*) 
-                FROM "App_commentvote" CV 
-                WHERE option='Down' 
-                AND CV.comment_id = CO.comment_id
-            )
-        ) AS "votes"
-        FROM "App_comment" CO, "App_user" US
-        WHERE CO.user_id = US.user_id
-            AND post_id = {post_id}
-        ORDER BY votes DESC
-    ''')
-
-    comments = [{
-        'comment': comment[0],
-        'comment_id': comment[1],
-        'date_posted': comment[2],
-        'user_id': comment[3],
-        'username': comment[4],
-        'current_vote': comment[5],
-        'votes': comment[6]
-    } for comment in comments]
+    comments = PostQuery().get_comments(user_id, post_id, format=True)
 
     context = {
         'title': 'Post',
