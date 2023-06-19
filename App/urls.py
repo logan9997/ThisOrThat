@@ -2,12 +2,15 @@ from django.urls import path
 from .views import (
     home, post, login, create,
     search, signup, logout, vote,
-    comment
+    comment, sort, pages
 )
 
 urlpatterns = [
     path(
         '', home.home, name='home'
+    ),
+    path(
+        'sort/<str:sort_type>', sort.sort, name='sort'
     ),
     path(
         'post/<int:post_id>/', post.post, name='post'
@@ -37,6 +40,9 @@ urlpatterns = [
     ),
     path(
         'search/', search.search, name='search'
+    ),
+    path(
+        'pages', pages.pages, name='pages'
     ),
     path(
         'vote/<int:post_id>/', vote.vote, name='vote'
