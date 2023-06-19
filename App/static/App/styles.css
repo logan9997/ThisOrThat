@@ -12,6 +12,10 @@ body {
     background-color: white;
     margin: 0;
     padding-top: 5rem;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 nav {
@@ -38,6 +42,14 @@ nav ul li {
     margin: 0 1rem 0;
 }
 
+#footer-flex-wrapper {
+    background-color: whitesmoke;
+    margin-top: 5rem;
+    background-color: whitesmoke;
+    border-top: 0.1rem black solid;
+    text-align: center;
+}
+
 /* HOME */
 #logged-in-msg {
     text-align: center;
@@ -48,18 +60,33 @@ nav ul li {
 #your-comments-and-posts {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
 #posts-activity, #comments-activity {
-    width: 49%;
+    width: 48%;
 }
+
+#comments-activity .comment {
+    height: 6.5rem;
+    padding: 0 2rem 0;
+}
+
+#comments-activity .comment .username-date-delete-container {
+    width: 20%;
+}
+
 
 .activity-h2 {
     text-align: center;
     box-shadow: 0.5rem 0.5rem purple;
     border: 0.1rem purple solid;
+}
+
+.for-loop-container {
+    overflow-y: auto;
+    max-height: 40rem;
 }
 
 /* CREATE */
@@ -185,13 +212,30 @@ nav ul li {
 }
 
 /* SEARCH */
+#pages-form {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0.5rem 0.5rem purple;
+    min-width: 10%;
+    max-width: 30%;
+    border: 0.1rem solid purple;
+}
+
+#pages-form button {
+    margin: 0.2rem;
+    position: relative;
+    border-radius: 0.5rem;
+}
+
 #search-main-container {
     width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: absolute;
     left: 20%;
+    position: absolute;
 }
 
 #tags-search-form {
@@ -208,12 +252,20 @@ nav ul li {
 #search-suggestions-container {
     margin: auto;
     width: 12rem;
+    display: none;
     margin-bottom: 2rem;
-    z-index: 3;
+    z-index: 2;
 }
 
-#search-suggestions-container div {
-    background-color: red;
+#search-suggestions-container a {
+    background-color: white;
+    display: block;
+}
+
+#remove-tag-button {
+    margin: 3rem auto;
+    width: 10%;
+    display: block;
 }
 
 #trending-questions {
@@ -282,6 +334,7 @@ nav ul li {
     justify-content: space-between;
     height: 6rem;
     border-bottom: 0.1rem purple solid;
+    overflow: hidden;
 }
 
 .comment:nth-child(odd) {
@@ -402,7 +455,7 @@ nav ul li {
 
 /* POST PREVIEW */
 .post-preview {
-    height: 6rem;
+    height: 6.5rem;
     margin: auto;
     display: flex;
     flex-direction: row;
