@@ -24,3 +24,26 @@ MAX_POST_PREVIEWS_PER_PAGE = 20
 MAX_TAGS = 5
 VALID_IMAGE_EXTENSIONS = ('.jpg', '.png', 'jpeg', 'jfif')
 MAX_TAG_LENGTH = MAX_TAGS_LENGTH // MAX_TAGS
+MAX_POSTS_PER_PAGE = 5
+
+#SORTS
+class GetSorts:
+    COMMENT_SORTS = [
+            {'text':'Votes high to low', 'value':'votes-True'},
+            {'text':'Votes low to high', 'value':'votes-False'},
+            {'text':'Newest', 'value':'date_posted-True'},
+            {'text':'Oldest', 'value':'date_posted-False'},
+    ]
+
+    POST_SORTS = [
+            {'text':'Comments high to low', 'value':'comments-True'},
+            {'text':'Comments low to high', 'value':'comments-False'},
+    ]
+    def get_comment_sorts(self):
+        return self.COMMENT_SORTS
+
+    def get_post_sorts(self):
+        empty_post_sorts = []
+        empty_post_sorts.extend(self.POST_SORTS)
+        empty_post_sorts.extend(self.COMMENT_SORTS)
+        return empty_post_sorts
