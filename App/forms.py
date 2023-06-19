@@ -1,4 +1,6 @@
+from typing import Any, Mapping, Optional, Type, Union
 from django import forms
+from django.forms.utils import ErrorList
 from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_TITLE_LENGTH,
     MAX_DESCRIPTION_LENGTH, MAX_TAGS_LENGTH, MAX_TAG_LENGTH,
@@ -54,3 +56,25 @@ class CommentVote(forms.Form):
 
 class DeleteComment(forms.Form):
     delete_comment = forms.BooleanField()
+
+
+class Sort(forms.Form):
+    sort_type = None
+
+    choices=[
+        ('votes-True', 'votes-True'),
+        ('votes-False', 'votes-False'),
+        ('date_posted-True', 'date_posted-True'),
+        ('date_posted-False', 'date_posted-False'),
+        ('comments-True', 'comments-True'),
+        ('comments-False', 'comments-False')
+    ]
+
+    def set_sort_type(self, sort_type):
+        self.sort_type = sort_type
+
+
+    sort_option = forms.ChoiceField(choices=choices)
+
+class Page(forms.Form):
+    page = forms.CharField(max_length=3)
