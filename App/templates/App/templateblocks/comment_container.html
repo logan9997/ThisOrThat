@@ -6,6 +6,8 @@
         <p>{{comment.votes}}</p>
         <input {% if comment.current_vote == 'Down' %}style="background-color:green;"{% endif %} type="submit" value="Down" name="vote_option">
     </form>
+    {% else %}
+    <p>{{comment.votes}}</p>
     {% endif %}
 
     <p class="comment-content">{{comment.comment}}</p>
@@ -26,4 +28,4 @@
             </form>
         {% endif %}
     </div>
-</div>
+</div>  

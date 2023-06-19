@@ -9,14 +9,26 @@
 
     {{ MAX_SEARCH_SUGGESTIONS|json_script:'max-search-suggestions' }}
 
+    {% if pages|length > 1 %}
+    <form id="pages-form" action="{% url 'pages' %}" method="GET">
+        {% for page in pages %}
+        <button {% if current_page == page %} style="background-color: green;"{% endif %} type="submit" name="page" value="{{page}}">{{page}}</button>
+        {% endfor %}
+    </form>
+    {% endif %}
+
     <div id="search-main-container">
         <form id="tags-search-form" action="{% url 'search' %}" method="GET">
-            <input onfocusout="change_element_display('search-suggestions-container', 'none')" oninput="search_suggestions()" 
-            onfocus="change_element_display('search-suggestions-container', 'block')" id="tags-search" type="text" name="tag" placeholder="Search For Tags">
+            <input oninput="search_suggestions()" onfocus="change_element_display('search-suggestions-container', 'block')" 
+            id="tags-search" type="text" name="tag" placeholder="Search For Tags">
         </form>
 
         <div id="search-suggestions-container"></div>
     </div>
+
+    {% if searched_tag != '%' %}
+    <button id="remove-tag-button" onclick="remove_tag_param()">X {{searched_tag}}</button>
+    {% endif %}
 
     {% if posts|length != 0 %}
     <div id="trending-questions">
@@ -27,7 +39,6 @@
             {% endfor %}
         </div>
     </div>
-
     {% else %}
     <div id="no-posts-container">
         <p>No posts for {{request.GET.tag}}</p>

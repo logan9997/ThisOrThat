@@ -11,9 +11,12 @@
         {% if posts|length != 0 %}
         <div id="posts-activity">
             <h2 class="activity-h2">Your Posts</h2>
+            {% include 'App/templateblocks/sorts.html' with sort_options=post_sorts selected_sort=current_posts_sort sort_type='posts' %}
+            <div class="for-loop-container">
             {% for post in posts %}
                 {% include 'App/templateblocks/post_preview.html' %}
             {% endfor%}
+            </div>
         </div>
         {% else %}
         <div id="create-your-first-post">
@@ -24,9 +27,12 @@
         {% if comments|length != 0 %}
         <div id="comments-activity">
             <h2 class="activity-h2">Your Comments</h2>
-            {% for comment in comments %}
-                {% include 'App/templateblocks/comment_container.html' with show_vote_form=False %}
-            {% endfor %}
+            {% include 'App/templateblocks/sorts.html' with sort_options=comment_sorts selected_sort=current_comments_sort sort_type='comments' %}
+            <div class="for-loop-container">
+                {% for comment in comments %}
+                    {% include 'App/templateblocks/comment_container.html' with show_vote_form=False %}
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
     </div>
