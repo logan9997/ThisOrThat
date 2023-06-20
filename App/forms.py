@@ -27,8 +27,8 @@ class SignUp(forms.Form):
 class CreatePost(forms.Form):
     title = forms.CharField(max_length=MAX_TITLE_LENGTH)
     main_description = forms.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH)
-    description_one = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH)
-    description_two = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH)
+    description_one = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH, required=False)
+    description_two = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH, required=False)
     image_one = forms.ImageField(required=False)
     image_two = forms.ImageField(required=False)
     tags = forms.CharField(max_length=MAX_TAGS_LENGTH)
