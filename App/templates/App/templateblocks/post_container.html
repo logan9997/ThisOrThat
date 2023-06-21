@@ -1,6 +1,13 @@
 {% load tags %}
 <div class="post-container">
     <h2 class="post-title">{{post.title}}</h2>
+    {% if post.user_id == request.session.user_id %}
+    <form action="{% url 'modify_post' post.post_id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="option" value="Delete">Delete</button>
+        <button type="submit" name="option" value="Edit">Edit</button>
+    </form>
+    {% endif %}
 
     <p class="main-description">{{post.main_description}}</p>
 
