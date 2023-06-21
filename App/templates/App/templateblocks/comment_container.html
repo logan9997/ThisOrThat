@@ -1,3 +1,5 @@
+<!-- options: show_vote_form, show_post_title -->
+
 <div class="comment">
     {% if show_vote_form %}
     <form class="comment-vote-form" action="{% url 'comment_vote' comment.comment_id post.post_id %}" method="POST">
@@ -7,18 +9,23 @@
         <input {% if comment.current_vote == 'Down' %}style="background-color:green;"{% endif %} type="submit" value="Down" name="vote_option">
     </form>
     {% else %}
-    <p>{{comment.votes}}</p>
+    <p class="votes">Votes : {{comment.votes}}</p>
     {% endif %}
 
-    <p class="comment-content">{{comment.comment}}</p>
+    <div class="content-container">
+        {% if show_post_title %}
+        <a href="{% url 'post' comment.post_id %}" class="post-title">{{comment.post_title}}</a>
+        {% endif %}
+        <p class="comment-content">{{comment.comment}}</p>
+    </div>
 
     <div class="username-date-delete-container">
         <p>{{comment.username}}</p>
         <p>{{comment.date_posted}}</p>
-
+        
         {% if comment.user_id == request.session.user_id %}
             {% if request.path == '/' %}
-            <form action="{% url 'delete_comment' comment.comment_id comment.post_id  %}" method="POST">
+            <form action="{% url 'delete_comment' comment.comment_id  %}" method="POST">
             {% else %}
             <form action="{% url 'delete_comment' comment.comment_id post.post_id  %}" method="POST">
             {% endif %}
