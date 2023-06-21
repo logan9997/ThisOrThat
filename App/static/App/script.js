@@ -14,7 +14,6 @@ function return_tags() {
         }
     }
     tags_input.value = tags_string
-
 }
 
 function seperate_tags(element) {
@@ -30,35 +29,40 @@ function seperate_tags(element) {
     }
 
     if (tag != null) {
-        // create new span containing the new tag
-        var created_tags = document.getElementById('created-tags')
-        var node = document.createElement('span')
-        node.innerHTML = tag
-        created_tags.appendChild(node)
-
-        // calculate created-tags new width    
-        tags_width = created_tags.style.width
-        if (tags_width == '') {
-            tags_width = `${tag.length}%`
-        } else {
-            tags_width = tags_width.replace('%', '')
-            tags_width = parseInt(tags_width)
-            tags_width = `${(tags_width + tag.length) * 2}%`
-        }
-        created_tags.style.width = tags_width
-        created_tags.style.padding = '0.15rem'
-        created_tags.style.border = '0.2px black solid;'
-
-
-        // calculate inputs new width
-        var input_width = element.style.width
-        input_width = input_width.replace('%', '')
-        input_width = parseInt(input_width)
-        input_width = `${(input_width - tags_width) / 2}rem`
-
-        element.style.width = input_width
-
+        create_tag(tag)
     }
+}
+
+function create_tag(tag) {
+    var created_tags_container = document.getElementById('created-tags')
+    var created_tags = created_tags_container.getElementsByTagName('button')
+    var node = document.createElement('button')
+    
+    //set node attributes
+    node.type = 'button'
+    node.innerHTML = tag
+    node.onclick = function() {
+        for (let i = 0; i < created_tags.length; i ++) {
+            if (created_tags[i].innerHTML == tag) {
+                created_tags[i].remove()
+            }
+        }
+        // checks there is atleast one tag
+        validate_post_create_input(document.getElementById('create-post-form'))
+    }
+    created_tags_container.appendChild(node)
+
+    // calculate created-tags new width    
+    tags_width = created_tags_container.style.width
+    if (tags_width == '') {
+        tags_width = `${tag.length}%`
+    } else {
+        tags_width = tags_width.replace('%', '')
+        tags_width = parseInt(tags_width)
+        tags_width = `${(tags_width + tag.length) * 2}%`
+    }
+    created_tags_container.style.padding = '0.15rem'
+    created_tags_container.style.border = '0.2px black solid;'
 }
 
 function remove_tag_param() {
@@ -75,7 +79,6 @@ function search_suggestions() {
 
     // clear search suggestions container before each oninput call
     for (let i = max_search_suggestions; i >= 0; i --) {
-        console.log(search_suggestions_container.childNodes[i])
         if (search_suggestions_container.childNodes[i] != undefined) {
             search_suggestions_container.removeChild(search_suggestions_container.lastChild)
         } 
@@ -86,7 +89,7 @@ function search_suggestions() {
     // create new containers for matched tags
     var matches = 0 
     for (let i = 0; i < tags.length; i ++ ) {
-        if (tags[i].includes(input.value.toLowerCase()) && input.value != '') {
+        if (tags[i].slice(0, input.value.length) == input.value.toLowerCase() && input.value != '') {
             var node = document.createElement('a')
             var tag = tags[i]
             var current_url = window.location.href
@@ -124,11 +127,40 @@ function preview_uploaded_image(event, option) {
     output.onload = function() {
       URL.revokeObjectURL(output.src) 
     }
-};
+}
+
+function validate_post_create_input(form) {
+    var inputs = []
+    inputs.push(...form.getElementsByTagName('input'))
+    inputs.push(...form.getElementsByTagName('textarea'))
+
+    var error_msg = ''
+    var submit_button = document.getElementById('submit-post')
+    var error_msg_tag = document.getElementById('create-post-error-msg')
+    var created_tags = document.getElementById(
+        'created-tags'
+    ).getElementsByTagName('button')
+    
+    for (let i = 0; i < inputs.length; i ++) {
+        if (
+            (inputs[i].required && inputs[i].value.length < 1 && inputs[i].id != 'tags-input') 
+            || created_tags.length < 1
+        ) {
+            error_msg = 'Please fill in all required fields'
+        }
+    }
+
+    if (error_msg == '') {
+        submit_button.disabled = false
+    } else {
+        submit_button.disabled = true
+    }
+    error_msg_tag.innerHTML = error_msg
+
+}
 
 function show_remove_image_button(option) {
     document.getElementById(`remove-image-${option}-button`).style.display = 'block'
-    document.getElementById(`image-${option}-input`).value = ''
 }
 
 function click_file_input(option) {
@@ -139,6 +171,10 @@ function change_element_display(element, display) {
     document.getElementById(element).style.display = display
 } 
 
+function remove_element_attribute(element, attribute) {
+    document.getElementById(element).removeAttribute(attribute) 
+}
+
 function style_textareas_when_scroll_bar_visible() {
     var textareas = document.getElementsByTagName('textarea')
     for (let i = 0; i < textareas.length; i ++) {
@@ -146,4 +182,10 @@ function style_textareas_when_scroll_bar_visible() {
             textareas[i].style.borderRadius = '0'
         }
     }
+}
+
+function change_element_value(option) {
+    var hidden_input = document.getElementById(`remove_image_${option}`)
+    console.log(hidden_input)
+    hidden_input.value = 'REMOVE'
 }
