@@ -8,6 +8,10 @@ class Manager():
         load_dotenv(self.env_path)
 
     def get_database_credentials(self, connection:str) -> dict:
+        '''
+        Return dict of database connection credentials.
+        - connection : 'settings' / 'psycopg2'
+        '''
         if connection == 'settings':
             credentials = {
                 'NAME': os.getenv('LOCAL_DB_NAME'),
