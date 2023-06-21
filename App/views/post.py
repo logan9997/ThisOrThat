@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import F
 from ..models import Post, PostVote
+from ..forms import ModifyPost
 from ..utils import (
     is_image_file_extension_valid
 )
 from ..sql_queries import Post as PostQuery
+from django.conf import settings
+import os
 
 def post(request, post_id):
 
@@ -25,14 +28,11 @@ def post(request, post_id):
         username=F('user__username')
     )[0]
 
-    # possibly reduntant with js function adding spaces?
     for image in ['image_one', 'image_two']:
-        if is_image_file_extension_valid(post[image]):
-            post[image] = '../../media/' + post[image]
-        else:
-            post[image] = '../../media/images/empty_post_image.png'
+        if post[image] != None:
+            post[image] = os.path.join(settings.MEDIA_URL, post[image])
 
-    comments = PostQuery().get_comments(user_id, post_id, format=True)
+    comments = PostQuery().get_comments(user_id, post_id)
 
     context = {
         'title': 'Post',
@@ -48,3 +48,14 @@ def post(request, post_id):
     return render(request, 'App/post.html', context=context)
 
 
+def modify_post(request, post_id):
+    form = ModifyPost(request.POST)
+    if form.is_valid():
+        option = form.cleaned_data.get('option')
+
+        if option == 'Edit':
+            return redirect('create', post_id)
+        
+    post = Post.objects.filter(post_id=post_id)
+    post.delete()
+    return redirect('home')
