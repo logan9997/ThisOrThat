@@ -30,7 +30,7 @@
             {% include 'App/templateblocks/sorts.html' with sort_options=comment_sorts selected_sort=current_comments_sort sort_type='comments' %}
             <div class="for-loop-container">
                 {% for comment in comments %}
-                    {% include 'App/templateblocks/comment_container.html' with show_vote_form=False %}
+                    {% include 'App/templateblocks/comment_container.html' with show_vote_form=False show_post_title=True %}
                 {% endfor %}
             </div>
         </div>
