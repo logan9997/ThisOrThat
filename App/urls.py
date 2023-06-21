@@ -16,6 +16,9 @@ urlpatterns = [
         'post/<int:post_id>/', post.post, name='post'
     ),
     path(
+        'modify_post/<int:post_id>/', post.modify_post, name='modify_post'
+    ),
+    path(
         'comment/<int:post_id>/', comment.comment, name='comment'
     ),
     path(
@@ -24,6 +27,10 @@ urlpatterns = [
     ),
     path(
         'delete_comment/<int:comment_id>/<int:post_id>/', 
+        comment.delete_comment, name='delete_comment'
+    ),
+    path(
+        'delete_comment/<int:comment_id>/', 
         comment.delete_comment, name='delete_comment'
     ),
     path(
@@ -39,6 +46,9 @@ urlpatterns = [
         'create/', create.create, name='create'
     ),
     path(
+        'create/<int:post_id>', create.create, name='create'
+    ),
+    path(
         'search/', search.search, name='search'
     ),
     path(
@@ -48,3 +58,4 @@ urlpatterns = [
         'vote/<int:post_id>/', vote.vote, name='vote'
     ),
 ]
+

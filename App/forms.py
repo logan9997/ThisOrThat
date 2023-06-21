@@ -31,6 +31,8 @@ class CreatePost(forms.Form):
     description_two = forms.CharField(max_length=MAX_DESCRIPTION_LENGTH, required=False)
     image_one = forms.ImageField(required=False)
     image_two = forms.ImageField(required=False)
+    remove_image_one = forms.CharField(max_length=10, required=False)
+    remove_image_two = forms.CharField(max_length=10, required=False)
     tags = forms.CharField(max_length=MAX_TAGS_LENGTH)
 
 
@@ -78,3 +80,9 @@ class Sort(forms.Form):
 
 class Page(forms.Form):
     page = forms.CharField(max_length=3)
+
+
+class ModifyPost(forms.Form):
+    option = forms.ChoiceField(choices=(
+        ('Delete', 'Delete'), ('Edit', 'Edit')
+    ))
