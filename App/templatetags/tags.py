@@ -42,6 +42,7 @@ def get_tags_list():
             tags = [tag_string]
 
         for tag in tags:
+            tag = tag.strip()
             if tag not in unique_tags:
                 unique_tags.append(tag)
     
