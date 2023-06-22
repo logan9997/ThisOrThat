@@ -35,7 +35,7 @@ class PostVote(models.Model):
     vote_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    option = models.CharField(max_length=1, choices=(
+    vote_option = models.CharField(max_length=1, choices=(
         ('1', '1'), ('2', '2')
     ))
 
