@@ -60,7 +60,7 @@ class Vote:
 
         #check if the user votes on their own post
         if len(master_model.objects.filter(user_id=user_id, **kwargs_post_id)) != 0:
-            request.session['vote_error_msg'] = "You can't vote on your own post"
+            request.session['vote_error_msg'] = f"You can't vote on your own {master_model.__name__}"
             request.session.modified = True
             return redirect('post', post_id=post_id) 
 
@@ -68,9 +68,9 @@ class Vote:
             user_id=user_id, **kwargs_post_id
         )
 
-        option = form.cleaned_data.get('vote_option')
+        vote_option = form.cleaned_data.get('vote_option')
         #deselect vote if same option selected as the previously selected option 
-        if option in current_vote.values_list('option', flat=True):
+        if vote_option in current_vote.values_list('vote_option', flat=True):
             current_vote.delete()
             return redirect('post', post_id=post_id)
         
@@ -81,7 +81,7 @@ class Vote:
         #save new vote
         new_vote = model(
             user_id=user_id,
-            option=option,   
+            vote_option=vote_option,   
             **kwargs_post_id         
         )
         new_vote.save()
@@ -148,7 +148,11 @@ def is_image_file_extension_valid(image_path:str) -> bool:
     Check if the an images contains an any valid file extension.
     Valid image extensions saved in config.py
     '''
+    if image_path == None:
+        return False
+
     for extension in VALID_IMAGE_EXTENSIONS:
+        print(image_path[-len(extension):].lower(), extension)
         if image_path[-len(extension):].lower() == extension:
             return True
     return False
