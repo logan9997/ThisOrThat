@@ -36,6 +36,42 @@ class Post(Query):
         sql = 'select * from "App_user"'
         result = self.select(sql, format=True)
         return result
+    
+    def get_post(self, post_id):
+        sql = f'''
+            SELECT PO.post_id, description_one, description_two, image_one, image_two,
+            status, PO.date_posted, tags, title, main_description, button_one_label, 
+            button_two_label, username,
+            (
+                SELECT COUNT(*)
+                FROM "App_postvote" PV
+                WHERE vote_option = '1'
+                    AND PO.post_id = PV.post_id
+            )  AS "option_one_votes",
+            (
+                SELECT COUNT(*)
+                FROM "App_postvote" PV
+                WHERE vote_option = '2'
+                    AND PO.post_id = PV.post_id
+            )  AS "option_two_votes",
+            (
+                SELECT user_id
+                FROM "App_user" US
+                WHERE PO.user_id = US.user_id
+            )
+            FROM "App_post" PO, "App_user" US
+            WHERE PO.user_id = US.user_id
+                AND post_id = {post_id}
+        '''
+
+        fields = [
+            'post_id','description_one', 'description_two', 'image_one', 
+            'image_two', 'status', 'date_posted', 'tags', 'title', 
+            'main_description', 'button_one_label', 'button_two_label', 
+            'username', 'option_one_votes', 'option_two_votes', 'user_id'
+        ]
+
+        return self.select(sql, format=True, fields=fields)[0]
 
     def get_posts(self, **kwargs):
         '''
@@ -43,22 +79,23 @@ class Post(Query):
         ordered by : count of votes (DESC), date_posted (DESC)
         '''        
         sql=f'''
-            SELECT PO.*,
+            SELECT PO.post_id, description_one, description_two, image_one, image_two,
+            status, PO.date_posted, tags, PO.user_id, title, main_description,
             (
                 SELECT count(*) 
                 FROM "App_comment" CO 
                 WHERE CO.post_id = PO.post_id
-            ),
+            ) AS "comments",
             (
                 SELECT count(*) 
                 FROM "App_postvote" VO 
                 WHERE VO.post_id = PO.post_id
-            ),
+            ) AS "votes",
             (
                 SELECT username
                 FROM "App_user" US
                 WHERE US.user_id = PO.user_id
-            )
+            ) AS "username"
             FROM "App_post" PO
             LEFT OUTER JOIN "App_postvote" VO ON PO.post_id=VO.post_id
             LEFT OUTER JOIN "App_comment" CO ON PO.post_id=CO.post_id
@@ -128,7 +165,7 @@ class Home(Query):
             WHERE CO.user_id = {user_id}
                 AND CO.post_id = PO.post_id
                 AND PO.user_id = US.user_id
-            ORDER BY votes DESC           
+            ORDER BY "votes" ASC           
         '''
 
         fields = [
