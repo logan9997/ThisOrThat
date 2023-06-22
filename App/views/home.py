@@ -1,16 +1,14 @@
 from django.shortcuts import render
-from django.db.models import Count
-from ..sql_queries import Post 
-from ..models import Comment
+from ..sql_queries import Post , Home
 from ..config import GetSorts
 from ..utils import Sort
 
 def home(request):
 
     user_id = request.session.get('user_id', -1)
-    posts = Post().get_posts(where=f'WHERE PO.user_id = {user_id}', format=True)
-    comments = Comment.objects.filter(user_id=user_id).values().annotate(votes=Count('commentvote'))
-    
+    posts = Post().get_posts(where=f'WHERE PO.user_id = {user_id}')
+    comments = Home().get_comments(user_id)
+
     posts = Sort.sort(request, 'posts', posts)
     comments = Sort.sort(request, 'comments', comments)
 
