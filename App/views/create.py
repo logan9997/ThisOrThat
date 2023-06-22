@@ -16,7 +16,6 @@ def create(request, post_id=None):
     edit_post_values = {}
     if post_id != None:
         edit_post_values = list(Post.objects.filter(post_id=post_id).values())[0]
-
         for image in ['image_one', 'image_two']:
             if edit_post_values[image] != None:
                 edit_post_values[image] = os.path.join(settings.MEDIA_URL, edit_post_values[image])
@@ -36,7 +35,7 @@ def create(request, post_id=None):
                     continue
                 if v not in ['', None]:
                     new[k] = v
-                    
+        
             form.cleaned_data = new
 
             if post_id != None:
