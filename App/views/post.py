@@ -21,16 +21,16 @@ def post(request, post_id):
     if len(current_vote) != 0:
         #get the option which the user voted for
         current_vote = current_vote.values_list(
-            'option', flat=True
+            'vote_option', flat=True
         )[0]
 
-    post = Post.objects.filter(post_id=post_id).values().annotate(
-        username=F('user__username')
-    )[0]
+    post = PostQuery().get_post(post_id)
 
     for image in ['image_one', 'image_two']:
-        if post[image] != None:
+        if post[image] != '':
             post[image] = os.path.join(settings.MEDIA_URL, post[image])
+
+    post['tags'] = post['tags'].split(',')
 
     comments = PostQuery().get_comments(user_id, post_id)
 
