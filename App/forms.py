@@ -1,10 +1,9 @@
-from typing import Any, Mapping, Optional, Type, Union
 from django import forms
-from django.forms.utils import ErrorList
 from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_TITLE_LENGTH,
     MAX_DESCRIPTION_LENGTH, MAX_TAGS_LENGTH, MAX_TAG_LENGTH,
-    MAX_MAIN_DESCRIPTION_LENTGH, MAX_COMMENT_LENGTH
+    MAX_MAIN_DESCRIPTION_LENTGH, MAX_COMMENT_LENGTH,
+    MAX_BUTTON_LABEL_LENGTH
 )
 
 class Login(forms.Form):
@@ -33,6 +32,8 @@ class CreatePost(forms.Form):
     image_two = forms.ImageField(required=False)
     remove_image_one = forms.CharField(max_length=10, required=False)
     remove_image_two = forms.CharField(max_length=10, required=False)
+    button_one_label = forms.CharField(max_length=MAX_BUTTON_LABEL_LENGTH)
+    button_two_label = forms.CharField(max_length=MAX_BUTTON_LABEL_LENGTH)
     tags = forms.CharField(max_length=MAX_TAGS_LENGTH)
 
 

@@ -2,9 +2,9 @@
 <div class="post-container">
     <h2 class="post-title">{{post.title}}</h2>
     {% if post.user_id == request.session.user_id %}
-    <form action="{% url 'modify_post' post.post_id %}" method="post">
+    <form class="edit-delete-form" action="{% url 'modify_post' post.post_id %}" method="post">
         {% csrf_token %}
-        <button type="submit" name="option" value="Delete">Delete</button>
+        <button onclick="return window.confirm('Delete Post?')" type="submit" name="option" value="Delete">Delete</button>
         <button type="submit" name="option" value="Edit">Edit</button>
     </form>
     {% endif %}
@@ -13,25 +13,41 @@
 
     <div class="options-container">
         <div id="option-one" class="options">
-            <img src="{{post.image_one}}" alt="{{post.image_one}}">
+            {% if post.image_one != '' %}
+            <div class="image-container">
+                <div class="empty-image-box"></div>
+                <img class="preview-image" src="{{post.image_one}}">
+            </div>     
+            {% endif %}       
             <p class="description">{{post.description_one}}</p>
         </div>
 
         <div id="option-two" class="options">
-            <img src="{{post.image_two}}" alt="{{post.image_two}}">
+            {% if post.image_two != '' %}
+            <div class="image-container">
+                <div class="empty-image-box"></div>
+                <img class="preview-image" src="{{post.image_two}}">
+            </div>
+            {% endif %}
             <p class="description">{{post.description_two}}</p>
         </div>
     </div>
 
-    <p class="tags">{{post.tags}}</p>
-    <p class="username">{{post.username}}</p>
-    {% if show_votes %}
-        <form class="votes" action="{% url 'vote' post.post_id %}" method="post">
-            {% csrf_token %}
-            <button {% if current_vote == '1' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="1">1</button>
-            <p class="vote-label">- Vote -</p>
-            <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">2</button>
-        </form>
-    {% endif %}
-    <p class="date-posted">{{post.date_posted}}</p>
+    <div id="bottom-content-container">
+        <div id="tags-container">
+            {% for tag in post.tags %}
+            <span>{{tag}}</span>
+            {% endfor %}
+        </div>
+        <p class="username">{{post.username}}</p>
+        {% if show_votes %}
+            <form class="votes" action="{% url 'vote' post.post_id %}" method="post">
+                {% csrf_token %}
+                <button {% if current_vote == '1' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="1">{{post.button_one_label}}</button>
+                <p class="vote-label">- Vote -</p>
+                <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">{{post.button_two_label}}</button>
+            </form>
+        {% endif %}
+        <p class="date-posted">{{post.date_posted}}</p>
+    </div>
 </div>

@@ -28,9 +28,8 @@
             {% with 'one two' as list %}
             {% for option in list.split %}
             <div id="option-{{option}}" class="image-description-contianer">
+
                 <div class="image-buttons-container">
-                    {% with image_value='image_'|add:option %}
-                    {{edit_post_values|get:image_value}}
                     <input accept="image/*" oninput="
                     preview_uploaded_image(event, '{{option}}'), 
                     show_remove_image_button('{{option}}')"
@@ -46,8 +45,14 @@
                         type="button">Remove Image
                     </button>
                 </div>
-                <img src="{{edit_post_values|get:image_value}}" class="preview-image" id="image-{{option}}-preview">
-                {% endwith %}
+
+                <div class="image-container">
+                    <div class="empty-image-box"></div>
+                    {% with image_value='image_'|add:option %}
+                    <img src="{{edit_post_values|get:image_value}}" class="preview-image" id="image-{{option}}-preview">
+                    {% endwith %}
+                </div>
+
                 <div class="description-container">
                     <label for="description_{{option}}">Description {{option}}</label>
                     {% with sub_description='description_'|add:option %}
@@ -55,9 +60,17 @@
                     class="description-input" name="description_{{option}}">{{edit_post_values|get:sub_description|add:''}}</textarea>
                     {% endwith %}
                 </div>
+
             </div>
             {% endfor %}
             {% endwith %}
+        </div>
+
+        <div id="button-labels-container">
+            <label for="button_one_label">Button One Label</label>
+            <input type="text" name="button_one_label" class="button-label">
+            <label for="button_two_label">Button Two Label</label>
+            <input type="text" name="button_two_label" class="button-label">
         </div>
 
         <div id="tags-container" class="create-post-section">

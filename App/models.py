@@ -3,7 +3,7 @@ from .config import (
     MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_STATUS_LENGTH,
     MAX_TAGS_LENGTH, MAX_MAIN_DESCRIPTION_LENTGH,
-    MAX_COMMENT_LENGTH
+    MAX_COMMENT_LENGTH, MAX_BUTTON_LABEL_LENGTH
 )
 
 
@@ -22,6 +22,8 @@ class Post(models.Model):
     description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
     image_one = models.ImageField(null=True, blank=True, upload_to='images/')
     image_two = models.ImageField(null=True, blank=True, upload_to='images/')
+    button_one_label = models.CharField(max_length=MAX_BUTTON_LABEL_LENGTH)
+    button_two_label = models.CharField(max_length=MAX_BUTTON_LABEL_LENGTH)
     status = models.CharField(max_length=MAX_STATUS_LENGTH, default='Open', choices=(
         ('Open', 'Open'), ('Closed', 'Closed')
     ))
