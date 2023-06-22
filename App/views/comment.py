@@ -48,7 +48,7 @@ def comment_vote(request, comment_id, post_id):
     return redirect('post', post_id)
 
 
-def delete_comment(request, comment_id, post_id):
+def delete_comment(request, comment_id, post_id=None):
 
     if request.method == 'POST':
         form = DeleteComment(request.POST)
@@ -58,4 +58,7 @@ def delete_comment(request, comment_id, post_id):
             if delete:
                 comment = CommentModel.objects.filter(comment_id=comment_id)
                 comment.delete()
-    return redirect('post', post_id)
+
+    if post_id != None:
+        return redirect('post', post_id)
+    return redirect('home')
