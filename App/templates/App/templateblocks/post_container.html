@@ -36,7 +36,7 @@
     <div id="bottom-content-container">
         <div id="tags-container">
             {% for tag in post.tags %}
-            <span>{{tag}}</span>
+            <span><a href="{% url 'search' %}?tag={{tag}}">{{tag}}</a></span>
             {% endfor %}
         </div>
         <p class="username">{{post.username}}</p>
@@ -47,7 +47,35 @@
                 <p class="vote-label">- Vote -</p>
                 <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">{{post.button_two_label}}</button>
             </form>
+
+            <div id="vote-results">
+                <p id="option-one-count">{{post.option_one_votes}}</p>
+                <div id="result-bar-container">
+                    <div id="result-bar-one"></div>
+                    <div id="result-bar-two"></div>
+                </div>
+                <p id="option-two-count">{{post.option_two_votes}}</p>
+            </div>
         {% endif %}
         <p class="date-posted">{{post.date_posted}}</p>
     </div>
 </div>
+
+<script>
+
+    // set vote bar widths
+    window.onload = function() {
+        var option_one_votes = parseInt(document.getElementById(`option-one-count`).innerHTML)
+        var option_two_votes = parseInt(document.getElementById(`option-two-count`).innerHTML)
+        var options = ['one', 'two']
+
+        for (let i = 0; i < options.length; i ++) {
+            var bar = document.getElementById(`result-bar-${options[i]}`)
+            console.log(eval(`option_two_votes`))
+            var bar_width = eval(`option_${options[i]}_votes`) / (option_one_votes + option_two_votes) * 1000
+            bar.style.width = `${bar_width}%`
+        }
+
+    }
+
+</script>
