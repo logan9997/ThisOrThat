@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from django.db.models import F
 from ..models import Post, PostVote
 from ..forms import ModifyPost
-from ..utils import (
-    is_image_file_extension_valid
-)
 from ..sql_queries import Post as PostQuery
 from django.conf import settings
 import os

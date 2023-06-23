@@ -1,6 +1,6 @@
-<form action="{% url 'sort' sort_type %}" method="POST">
+<form class="sort-form" action="{% url 'sort' sort_type %}" method="POST">
     {% csrf_token %}
-    <select oninput="form.submit()" name="sort_option">
+    <select class="dropdown-sorts" oninput="form.submit()" name="sort_option">
         {% for option in sort_options %}
         <option value="{{option.value}}">{{option.text}}</option>
         {% endfor %}

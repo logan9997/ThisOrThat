@@ -56,7 +56,9 @@ function seperate_tags(element) {
         if (input_value[i] == ',') {
             tag = input_value.slice(0, i)
             element.value = ''
-            create_tag(tag)
+            if (tag.length > 2) {
+                create_tag(tag)
+            }
             break
         }
     }
@@ -148,10 +150,10 @@ function validate_post_create_input(form) {
         }
         if (created_tags.length >= 5) {
             tags_input.disabled = true
-            tags_input.placeholder = 'Maximum of 5 tags'
+            tags_input.placeholder = 'Maximum of 5 tags. Click tags to remove them'
         } else {
             tags_input.disabled = false
-            tags_input.placeholder = "(Seperate tags with commas, eg : 'sport,')"
+            tags_input.placeholder = "Seperate tags with commas, eg : 'sport,'"
         }
     }
 

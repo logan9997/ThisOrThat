@@ -19,7 +19,7 @@
 
     <div id="search-main-container">
         <form id="tags-search-form" action="{% url 'search' %}" method="GET">
-            <input oninput="search_suggestions()" onfocus="change_element_display('search-suggestions-container', 'block')" 
+            <input autocomplete="off" oninput="search_suggestions()" onfocus="change_element_display('search-suggestions-container', 'block')" 
             id="tags-search" type="text" name="tag" placeholder="Search For Tags">
         </form>
 

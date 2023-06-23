@@ -150,10 +150,6 @@ nav ul li {
     flex-direction: column;
 }
 
-#option-two {
-    padding-left: 3%;
-}
-
 .image-buttons-container {
     display: flex;
     flex-direction: column;
@@ -183,7 +179,7 @@ nav ul li {
 }
 
 .image-container {
-    height: 60%;
+    height: 12rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -233,8 +229,8 @@ nav ul li {
     width: 90%;
     min-height: 10rem;
     resize: none;
-    border-radius: 1rem;
     margin-top: 0.5rem;
+    overflow-y: auto;
 }
 
 #button-labels-container {
@@ -514,17 +510,26 @@ nav ul li {
     white-space: pre-line;
     overflow-y: auto;
     height: 10rem;
+    border-bottom: 0.1rem purple solid;
 }
 
 .post-container .options-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border-bottom: 0.1rem purple solid;
+    padding-bottom: 1rem;
+    width: 80%;
+    margin: auto;
 }
-
 
 .post-container .options {
     width: 45%;
+    height: fit-content;
+}
+
+.border-line {
+    border: 0.05rem purple solid;
 }
 
 .post-container .description {
@@ -532,9 +537,7 @@ nav ul li {
     margin: 1rem auto 0;
     white-space:pre-line;
     overflow-y: auto;
-    /* height: 57.3%; */
-    height: 10rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .post-container .date-posted,
@@ -544,13 +547,14 @@ nav ul li {
 }
 
 #bottom-content-container {
-    margin-top: 15%;
+    position: relative;
 }
 
 #bottom-content-container #tags-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .votes {

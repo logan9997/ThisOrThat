@@ -32,7 +32,6 @@
             {% else %}
             <li><a href="{% url 'create' %}">Create</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
-            <li>{% get_username request %}</li>
             {% endif %}
         </ul>
     </nav>
