@@ -1,1 +1,1 @@
-web: gunicorn ThisOrThat.wsgi:application --log-file -
+web: gunicorn thisorthat.wsgi:application --log-file -
