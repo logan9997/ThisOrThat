@@ -49,12 +49,12 @@
             </form>
 
             <div id="vote-results">
-                <p id="option-one-count">{{post.option_one_votes}}</p>
+                <p class="total-votes" id="option-one-count">{{post.option_one_votes}}</p>
                 <div id="result-bar-container">
                     <div id="result-bar-one"></div>
                     <div id="result-bar-two"></div>
                 </div>
-                <p id="option-two-count">{{post.option_two_votes}}</p>
+                <p class="total-votes" id="option-two-count">{{post.option_two_votes}}</p>
             </div>
         {% endif %}
         <p class="date-posted">{{post.date_posted}}</p>
