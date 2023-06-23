@@ -16,23 +16,6 @@ function return_tags() {
     tags_input.value = tags_string
 }
 
-function seperate_tags(element) {
-    var input_value = element.value;
-    var tag = null;
-
-    for (let i = 0; i < input_value.length; i ++) {
-        if (input_value[i] == ',') {
-            tag = input_value.slice(0, i)
-            element.value = ''
-            break
-        }
-    }
-
-    if (tag != null) {
-        create_tag(tag)
-    }
-}
-
 function create_tag(tag) {
     var created_tags_container = document.getElementById('created-tags')
     var created_tags = created_tags_container.getElementsByTagName('button')
@@ -63,6 +46,20 @@ function create_tag(tag) {
     }
     created_tags_container.style.padding = '0.15rem'
     created_tags_container.style.border = '0.2px black solid;'
+}
+
+function seperate_tags(element) {
+    var input_value = element.value;
+    var tag = null;
+
+    for (let i = 0; i < input_value.length; i ++) {
+        if (input_value[i] == ',') {
+            tag = input_value.slice(0, i)
+            element.value = ''
+            create_tag(tag)
+            break
+        }
+    }
 }
 
 function remove_tag_param() {
@@ -140,13 +137,21 @@ function validate_post_create_input(form) {
     var created_tags = document.getElementById(
         'created-tags'
     ).getElementsByTagName('button')
+    var tags_input = document.getElementById('tags-input')
     
     for (let i = 0; i < inputs.length; i ++) {
         if (
             (inputs[i].required && inputs[i].value.length < 1 && inputs[i].id != 'tags-input') 
             || created_tags.length < 1
         ) {
-            error_msg = 'Please fill in all required fields'
+            error_msg = 'Please fill in all required fields (*)'
+        }
+        if (created_tags.length >= 5) {
+            tags_input.disabled = true
+            tags_input.placeholder = 'Maximum of 5 tags'
+        } else {
+            tags_input.disabled = false
+            tags_input.placeholder = "(Seperate tags with commas, eg : 'sport,')"
         }
     }
 
@@ -186,6 +191,5 @@ function style_textareas_when_scroll_bar_visible() {
 
 function change_element_value(option) {
     var hidden_input = document.getElementById(`remove_image_${option}`)
-    console.log(hidden_input)
     hidden_input.value = 'REMOVE'
 }
