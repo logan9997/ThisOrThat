@@ -21,13 +21,23 @@ class Manager():
                 'PORT': os.getenv('LOCAL_DB_PORT'),
             }
         elif connection == 'psycopg2':
-            credentials = {
-                'dbname': os.getenv('LOCAL_DB_NAME'),
-                'user': os.getenv('LOCAL_DB_USER'),
-                'password': os.getenv('LOCAL_DB_PASSWORD'),
-                'host': os.getenv('LOCAL_DB_HOST'),
-                'port': os.getenv('LOCAL_DB_PORT'),
-            }          
+            if os.getenv('DEVELOPMENT') == 'True':
+                credentials = {
+                    'dbname': os.getenv('LOCAL_DB_NAME'),
+                    'user': os.getenv('LOCAL_DB_USER'),
+                    'password': os.getenv('LOCAL_DB_PASSWORD'),
+                    'host': os.getenv('LOCAL_DB_HOST'),
+                    'port': os.getenv('LOCAL_DB_PORT'),
+                }        
+            else:
+                credentials = {
+                    'dbname': os.getenv('HEROKU_DB_NAME'),
+                    'user': os.getenv('HEROKU_DB_USER'),
+                    'password': os.getenv('HEROKU_DB_PASSWORD'),
+                    'host': os.getenv('HEROKU_DB_HOST'),
+                    'port': os.getenv('HEROKU_DB_PORT'),
+                }        
+                  
         return credentials
     
     def get_items(self, *args) -> dict:
