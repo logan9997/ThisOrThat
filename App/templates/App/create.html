@@ -67,8 +67,8 @@
         </div>
 
         <div id="button-labels-container">
-            <input placeholder="Vote value 1" type="text" name="button_one_label" value="{{edit_post_values.button_one_label}}" class="button-label">
-            <input placeholder="Vote value 2" type="text" name="button_two_label" value="{{edit_post_values.button_two_label}}" class="button-label">
+            <input required placeholder="Vote value 1 *" type="text" name="button_one_label" value="{{edit_post_values.button_one_label}}" class="button-label">
+            <input required placeholder="Vote value 2 *" type="text" name="button_two_label" value="{{edit_post_values.button_two_label}}" class="button-label">
         </div>
 
         <div id="tags-container" class="create-post-section">
@@ -84,11 +84,17 @@
         </div>
 
         <div class="create-post-section">
-            <input disabled id="submit-post" type="submit" value="Post!">
+            <button disabled id="submit-post" type="submit" value="Post!">Post</button>
             <p id="create-post-error-msg"></p>
         </div>
     </form>
 
+    {% if edit_post_values.user_id == request.session.user_id %}
+    <form id="delete-post-form" action="{% url 'modify_post' post_id %}" method="post">
+        {% csrf_token %}
+        <button id="delete-button" onclick="return window.confirm('Delete Post?')" type="submit" name="option" value="Delete">Delete</button>
+    </form>
+    {% endif %}
 </section>
 
 <script>
@@ -107,6 +113,11 @@
         show_remove_image_button(options[i])
         }
     }
+
+    // confirm refresh of page so edit progress is not lost
+    window.onbeforeunload = function () {
+        return "";
+    };
     
 </script>
 {% endblock %}
