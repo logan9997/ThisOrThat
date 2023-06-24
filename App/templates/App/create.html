@@ -84,7 +84,7 @@
         </div>
 
         <div class="create-post-section">
-            <button disabled id="submit-post" type="submit" value="Post!">Post</button>
+            <button onclick="set_confirm_refresh()" disabled id="submit-post" type="submit" value="Post!">Post</button>
             <p id="create-post-error-msg"></p>
         </div>
     </form>
@@ -99,11 +99,14 @@
 
 <script>
     window.onload = function() {
-        var edit_tags = JSON.parse(document.getElementById('edit-tags').textContent)
-        edit_tags = edit_tags.split(', ')
-        console.log(edit_tags)
-        for (let i = 0; i < edit_tags.length; i ++) {
-            create_tag(edit_tags[i])
+        var edit_tags = document.getElementById('edit-tags')
+        if (edit_tags != null) {
+            var edit_tags = JSON.parse(edit_tags.textContent)
+            edit_tags = edit_tags.split(', ')
+            console.log(edit_tags)
+            for (let i = 0; i < edit_tags.length; i ++) {
+                create_tag(edit_tags[i])
+            }
         }
     validate_post_create_input(document.getElementById('create-post-form'))
 
@@ -115,8 +118,24 @@
     }
 
     // confirm refresh of page so edit progress is not lost
+    var form = document.getElementById('create-post-form')
+
+    window.onload = function() {
+        console.log('onload')
+        localStorage.setItem('form_submitted', 'false')
+    }
+
+    form.onsubmit = function() {
+        console.log('submit')
+        localStorage.setItem('form_submitted', 'true')
+    }
+
     window.onbeforeunload = function () {
-        return "";
+        var submitted = localStorage.getItem('form_submitted', 'false')
+        console.log(submitted)
+        if (! all_inputs_blank(form) && submitted != 'true') {
+            return "";
+        }
     };
     
 </script>

@@ -70,8 +70,7 @@ function remove_tag_param() {
     location.reload()
 }
 
-function all_inputs_blank() {
-    form = document.getElementById('create-post-form')
+function all_inputs_blank(form) {
     var inputs = []
     inputs.push(...form.getElementsByTagName('input'))
     inputs.push(...form.getElementsByTagName('textarea'))
@@ -170,14 +169,16 @@ function validate_post_create_input(form) {
             tags_input.placeholder = "Seperate tags with commas, eg : 'sport,'"
         }
     }
-
+    error_msg_tag.innerHTML = error_msg
     if (error_msg == '') {
         submit_button.disabled = false
     } else {
         submit_button.disabled = true
     }
-    error_msg_tag.innerHTML = error_msg
+}
 
+function set_confirm_refresh() {
+    localStorage.setItem('confirm_refresh', false)
 }
 
 function show_remove_image_button(option) {
