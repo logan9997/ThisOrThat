@@ -70,6 +70,20 @@ function remove_tag_param() {
     location.reload()
 }
 
+function all_inputs_blank() {
+    form = document.getElementById('create-post-form')
+    var inputs = []
+    inputs.push(...form.getElementsByTagName('input'))
+    inputs.push(...form.getElementsByTagName('textarea'))
+
+    for (let i = 0; i < inputs.length; i ++) {
+        if (inputs[i].value != '' && inputs[i].name != 'csrfmiddlewaretoken') {
+            return false
+        }
+    }
+    return true
+}
+
 function search_suggestions() {
     var input = document.getElementById('tags-search')
     var tags = JSON.parse(document.getElementById('tags-list').textContent)
