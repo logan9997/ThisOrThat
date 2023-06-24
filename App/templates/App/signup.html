@@ -1,13 +1,27 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section class="main" id="signup-main">
+<section class="main" id="login-main">
 
-    <form action="{% url 'signup' %}" method="POST">
+    <h2>Sign Up</h2>
+
+    <form id="login-form" action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
-        <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
-        <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
-        <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
+        <div class="label-input-container">
+            <label for="username">Username</label>
+            <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
+        </div>
+
+        <div class="label-input-container">
+            <label for="password">Password</label>
+            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
+        </div>
+
+        <div class="label-input-container">
+            <label for="confirm_password">Confirm Password</label>
+            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
+        </div>
+
         <input type="submit" value="Sign Up!">
     </form>
 

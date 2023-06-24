@@ -3,10 +3,19 @@
 {% block content %}
 <section class="main" id="login-main">
 
-    <form action="{% url 'login' %}" method="post">
+    <h2>Login</h2>
+
+    <form id="login-form" action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
-        <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
+        <div class="label-input-container">
+            <label for="username">Username</label>
+            <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
+        </div>
+
+        <div class="label-input-container">
+            <label for="password">Password</label>
+            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
+        </div>
         <input type="submit" value="Login!">
     </form>
 
