@@ -3,6 +3,8 @@
 
 {% block content %}
 <section class="main" id="search-main">
+    <h2 id="create-post-heading">Create Post</h2>
+
     <form oninput="validate_post_create_input(this)" onsubmit="return_tags()" id="create-post-form" 
     {% if post_id != None %} action="{% url 'create' post_id %}" {% else %} action="{% url 'create' %}" {% endif %}
     method="POST" enctype="multipart/form-data">
@@ -49,7 +51,7 @@
                 <div class="image-container">
                     <div class="empty-image-box"></div>
                     {% with image_value='image_'|add:option %}
-                    <img src="{{edit_post_values|get:image_value}}" class="preview-image" id="image-{{option}}-preview">
+                    <img src="{{edit_post_values|get:image_value|add:',""'}}" class="preview-image" id="image-{{option}}-preview">
                     {% endwith %}
                 </div>
 
@@ -121,12 +123,10 @@
     var form = document.getElementById('create-post-form')
 
     window.onload = function() {
-        console.log('onload')
         localStorage.setItem('form_submitted', 'false')
     }
 
     form.onsubmit = function() {
-        console.log('submit')
         localStorage.setItem('form_submitted', 'true')
     }
 
