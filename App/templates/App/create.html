@@ -5,7 +5,7 @@
 <section class="main" id="search-main">
     <h2 id="create-post-heading">Create Post</h2>
 
-    <form oninput="validate_post_create_input(this)" onsubmit="return_tags(),  localStorage.setItem('form_submitted', 'true')" id="create-post-form" 
+    <form oninput="validate_post_create_input(this)" onsubmit="return_tags(), localStorage.setItem('form_submitted', 'true')" id="create-post-form" 
     {% if post_id != None %} action="{% url 'create' post_id %}" {% else %} action="{% url 'create' %}" {% endif %}
     method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -51,7 +51,7 @@
                 <div class="image-container">
                     <div class="empty-image-box"></div>
                     {% with image_value='image_'|add:option %}
-                    <img src="{{edit_post_values|get:image_value|add:',""'}}" class="preview-image" id="image-{{option}}-preview">
+                    <img src="{{edit_post_values|get:image_value}}" class="preview-image" id="image-{{option}}-preview">
                     {% endwith %}
                 </div>
 
@@ -102,6 +102,7 @@
 <script>
     window.onload = function() {
         var edit_tags = document.getElementById('edit-tags')
+        console.log(edit_tags)
         if (edit_tags != null) {
             var edit_tags = JSON.parse(edit_tags.textContent)
             edit_tags = edit_tags.split(', ')
@@ -110,21 +111,21 @@
                 create_tag(edit_tags[i])
             }
         }
-    validate_post_create_input(document.getElementById('create-post-form'))
 
-    const options = ['one', 'two']
-    for (let i = 0; i < 2; i ++) {
-    if (document.getElementById(`image-${options[i]}-preview`).src != null)
-        show_remove_image_button(options[i])
+        localStorage.setItem('form_submitted', 'false')
+        validate_post_create_input(document.getElementById('create-post-form'))
+
+        const options = ['one', 'two']
+        for (let i = 0; i < 2; i ++) {
+            var img = document.getElementById(`image-${options[i]}-preview`)
+            if (img.src != null && img.src.slice(img.src.length-4, img.src.length) != 'None') {
+                show_remove_image_button(options[i])
+            }
         }
     }
 
     // confirm refresh of page so edit progress is not lost
     var form = document.getElementById('create-post-form')
-
-    window.onload = function() {
-        localStorage.setItem('form_submitted', 'false')
-    }
 
     window.onbeforeunload = function () {
         var submitted = localStorage.getItem('form_submitted', 'false')
