@@ -27,7 +27,7 @@
     </div>
 
     {% if searched_tag != '%' %}
-    <button id="remove-tag-button" onclick="remove_tag_param()">X {{searched_tag}}</button>
+    <button id="remove-tag-button" onclick="remove_tag_param()">Clear "{{searched_tag}}"</button>
     {% endif %}
 
     {% if posts|length != 0 %}
