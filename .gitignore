@@ -1,2 +1,4 @@
 /media/images
 /staticfiles
+.env
+data_fill.py
