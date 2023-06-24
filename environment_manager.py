@@ -12,31 +12,29 @@ class Manager():
         Return dict of database connection credentials.
         - connection : 'settings' / 'psycopg2'
         '''
+        if os.getenv('DEVELOPMENT') == 'True':
+            conn_type = 'LOCAL'
+        else:
+            conn_type = 'HEROKU'
+
         if connection == 'settings':
+            
             credentials = {
-                'NAME': os.getenv('LOCAL_DB_NAME'),
-                'USER': os.getenv('LOCAL_DB_USER'),
-                'PASSWORD': os.getenv('LOCAL_DB_PASSWORD'),
-                'HOST': os.getenv('LOCAL_DB_HOST'),
-                'PORT': os.getenv('LOCAL_DB_PORT'),
+                'NAME': os.getenv(f'{conn_type}_DB_NAME'),
+                'USER': os.getenv(f'{conn_type}_DB_USER'),
+                'PASSWORD': os.getenv(f'{conn_type}_DB_PASSWORD'),
+                'HOST': os.getenv(f'{conn_type}_DB_HOST'),
+                'PORT': os.getenv(f'{conn_type}_DB_PORT'),
             }
         elif connection == 'psycopg2':
-            if os.getenv('DEVELOPMENT') == 'True':
-                credentials = {
-                    'dbname': os.getenv('LOCAL_DB_NAME'),
-                    'user': os.getenv('LOCAL_DB_USER'),
-                    'password': os.getenv('LOCAL_DB_PASSWORD'),
-                    'host': os.getenv('LOCAL_DB_HOST'),
-                    'port': os.getenv('LOCAL_DB_PORT'),
-                }        
-            else:
-                credentials = {
-                    'dbname': os.getenv('HEROKU_DB_NAME'),
-                    'user': os.getenv('HEROKU_DB_USER'),
-                    'password': os.getenv('HEROKU_DB_PASSWORD'),
-                    'host': os.getenv('HEROKU_DB_HOST'),
-                    'port': os.getenv('HEROKU_DB_PORT'),
-                }        
+            credentials = {
+                'dbname': os.getenv(f'{conn_type}_DB_NAME'),
+                'user': os.getenv(f'{conn_type}_DB_USER'),
+                'password': os.getenv(f'{conn_type}_DB_PASSWORD'),
+                'host': os.getenv(f'{conn_type}_DB_HOST'),
+                'port': os.getenv(f'{conn_type}_DB_PORT'),
+            }        
+       
                   
         return credentials
     
