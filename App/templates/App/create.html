@@ -5,7 +5,7 @@
 <section class="main" id="search-main">
     <h2 id="create-post-heading">Create Post</h2>
 
-    <form oninput="validate_post_create_input(this)" onsubmit="return_tags()" id="create-post-form" 
+    <form oninput="validate_post_create_input(this)" onsubmit="return_tags(),  localStorage.setItem('form_submitted', 'true')" id="create-post-form" 
     {% if post_id != None %} action="{% url 'create' post_id %}" {% else %} action="{% url 'create' %}" {% endif %}
     method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -126,13 +126,8 @@
         localStorage.setItem('form_submitted', 'false')
     }
 
-    form.onsubmit = function() {
-        localStorage.setItem('form_submitted', 'true')
-    }
-
     window.onbeforeunload = function () {
         var submitted = localStorage.getItem('form_submitted', 'false')
-        console.log(submitted)
         if (! all_inputs_blank(form) && submitted != 'true') {
             return "";
         }
