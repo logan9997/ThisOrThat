@@ -29,6 +29,10 @@ class Query:
             return [row[0] for row in result]
         return result
     
+    def insert(self, sql):
+        self.cursor.execute(sql)
+        self.conn.commit()
+    
     
 class Post(Query):
 
