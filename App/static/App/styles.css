@@ -16,6 +16,13 @@ body {
     min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
+    background: repeating-linear-gradient(
+        45deg,
+        white,
+        whitesmoke 120px,
+        white 20px,
+        whitesmoke 120px
+    );
 }
 
 nav {
@@ -77,16 +84,57 @@ nav ul li {
     width: 20%;
 }
 
+#get-started {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+#get-started > * {
+    margin:1rem auto;
+}
 
 .activity-h2 {
     text-align: center;
     box-shadow: 0.5rem 0.5rem purple;
     border: 0.1rem purple solid;
+    width: 100%;
+    background-color: white;
+}
+
+#info {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.info-block {
+    width: 45%;
+    height: 80%;
+    border: 0.1rem purple solid;
+    box-shadow: 0.5rem 0.5rem purple;
+    transition: all 1s ease-in-out;
+    background-color: white;
+}
+
+.info-block:hover {
+    transform: scale(1.025);
+}
+
+.info-block h3 {
+    text-align: center;
+    background-color: purple;
+    margin: 0rem;
+    padding: 0.2rem;
 }
 
 .for-loop-container {
     overflow-y: auto;
     max-height: 40rem;
+    background-color: white;
 }
 
 /* SORTS */
@@ -95,11 +143,13 @@ nav ul li {
     justify-content: center;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
-    background-color: whitesmoke;
+    width: 20%;
+    margin: auto;
 }
 
 .dropdown-sorts {
     text-align: center;
+    box-shadow: 0.1rem 0.1rem 0.1rem black;
 }
 
 /* CREATE */
@@ -110,6 +160,15 @@ nav ul li {
     flex-direction: column;
     justify-content: center;
     min-height: 20rem;
+}
+
+#create-post-heading {
+    text-align: center;
+    border: 0.1rem purple solid;
+    box-shadow: 0.5rem 0.5rem purple;
+    width: 50%;
+    margin: auto;
+    background-color: white;
 }
 
 #images-descriptions-container {
@@ -154,6 +213,7 @@ nav ul li {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .image-buttons-container > * {
@@ -198,6 +258,7 @@ nav ul li {
     width: 85%;
     height: 85%;
     padding: 1.2rem 0;
+    background-color: white;
 }
 
 .preview-image {
@@ -223,6 +284,10 @@ nav ul li {
 
 #main-description-container textarea {
     width: 90%;
+}
+
+.description-container {
+    margin-top: 1rem;
 }
 
 .description-input {
@@ -303,6 +368,7 @@ nav ul li {
     min-width: 10%;
     max-width: 30%;
     border: 0.1rem solid purple;
+    background-color: white;
 }
 
 #pages-form button {
@@ -348,6 +414,12 @@ nav ul li {
     margin: 3rem auto;
     width: 10%;
     display: block;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+#remove-tag-button:hover {
+    background-color: red;
 }
 
 #trending-questions {
@@ -363,6 +435,7 @@ nav ul li {
 
 #posts-container {
     background-color: whitesmoke;
+    box-shadow: 0.5rem 0.5rem 0.5rem purple;
 }
 
 /* POST */
@@ -417,6 +490,7 @@ nav ul li {
     height: 6rem;
     border-bottom: 0.1rem purple solid;
     overflow: hidden;
+    background-color: white;
 }
 
 .comment:nth-child(odd) {
@@ -479,6 +553,7 @@ nav ul li {
     border-left: 0.1rem purple solid;
     border-top: 0.1rem purple solid;
     justify-content: space-between;
+    background-color: white;
 }
 
 .post-container .post-title {
@@ -648,4 +723,29 @@ border-radius: 1rem;
 
 .post-preview .title-tags-container {
     width: 60%;
+}
+
+/* LOGIN / SIGNUP */
+#login-main h2 {
+    text-align: center;
+}
+
+#login-form {
+    width: 40%;
+    height: 60vh;
+    margin:2rem auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form .label-input-container {
+    width: 40%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form input[type=submit] {
+    width: 30%;
+    margin: 0 auto;
 }
