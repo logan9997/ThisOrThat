@@ -5,6 +5,8 @@
 <section class="main" id="home-main">
     {% if logged_in %}
     <p id="logged-in-msg">Welcome back {% get_username request %}</p>
+    {% else %}
+    <p id="logged-in-msg"><a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Sign up</a></p>
     {% endif %}
 
     <div id="your-comments-and-posts">
@@ -19,8 +21,16 @@
             </div>
         </div>
         {% else %}
-        <div id="create-your-first-post">
-            <h2 class="activity-h2">Create your first post</h2>
+        <div id="get-started">
+            <h2 class="activity-h2">Get Started</h2>
+            <div id="info">
+                <div class="info-block">
+                    <h3>Help others make tough decisions!</h3>
+                </div>
+                <div class="info-block">
+                    <h3>Create your own posts!</h3>
+                </div>
+            </div>
         </div>
         {% endif%}
 
