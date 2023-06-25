@@ -10,9 +10,8 @@ def pages(request):
     #add query string to end of URL
     response = redirect('search')
     query_string = f'?page={page}'
-    print(request.session['get_params'].get('tag', False))
-    if tag := request.session['get_params'].get('tag', False):
-        print('if met')
+    tag = request.session['get_params'].get('tag', False)
+    if tag:
         query_string += f'&tag={tag}'
 
     response['location'] += query_string
