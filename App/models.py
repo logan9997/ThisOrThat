@@ -18,7 +18,8 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=MAX_TITLE_LENGTH)
     main_description = models.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH)
-    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
+    # + 100 to account for \r, \n inside textarea inputs
+    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH + 100, null=True, blank=True)
     description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
     image_one = models.ImageField(null=True, blank=True, upload_to='images/')
     image_two = models.ImageField(null=True, blank=True, upload_to='images/')
