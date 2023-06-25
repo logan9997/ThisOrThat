@@ -23,6 +23,7 @@ body {
         white 20px,
         whitesmoke 120px
     );
+    background-attachment: fixed;
 }
 
 nav {
@@ -111,9 +112,23 @@ nav ul li {
     flex-wrap: wrap;
 }
 
-.info-block {
+#info h3 {
+    text-align: center;
+    background-color: purple;
+    margin: 0rem;
+    padding: 0.2rem;
+}
+
+#start-searching {
+    width: 95% !important;
+    height: unset !important;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.info-block, #start-searching {
     width: 45%;
-    height: 80%;
+    height: 60%;
     border: 0.1rem purple solid;
     box-shadow: 0.5rem 0.5rem purple;
     transition: all 1s ease-in-out;
@@ -124,12 +139,7 @@ nav ul li {
     transform: scale(1.025);
 }
 
-.info-block h3 {
-    text-align: center;
-    background-color: purple;
-    margin: 0rem;
-    padding: 0.2rem;
-}
+
 
 .for-loop-container {
     overflow-y: auto;
@@ -451,9 +461,14 @@ nav ul li {
     box-shadow: 0.5rem 0.5rem purple;
     border: 0.1rem purple solid;
     padding-left: 1rem;
+    background-color: white;
 }
 
 #create-comment-container h3 {
+    text-align: center;
+}
+
+#login-to-comment {
     text-align: center;
 }
 
