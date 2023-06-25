@@ -24,9 +24,6 @@ def create(request, post_id=None):
         form = CreatePost(request.POST, request.FILES)
         if form.is_valid():
 
-            print(repr(form.cleaned_data.get('main_description')))
-            str
-
             new = {}
             for k, v in form.cleaned_data.items():
                 if 'remove_image' in k and v == 'REMOVE':
