@@ -8,6 +8,7 @@
 
     <section id="comments-main-container">
         <h2 id="comments-header">Comments</h2>
+        {% if request.session.user_id > 0 %}
         <div id="create-comment-container">
             <h3>Create Comment</h3>
             <form id="new-comment-form" action="{% url 'comment' post.post_id %}" method="POST">
@@ -16,6 +17,9 @@
                 <input type="submit" value="Post!">
             </form>
         </div>
+        {% else %}
+        <p id="login-to-comment">You must be logged in to comment - <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup'%}">Sign Up</a></p>
+        {% endif %}
 
         <div id="comments"> 
             {% for comment in comments %}
