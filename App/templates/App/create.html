@@ -138,8 +138,9 @@
 
     window.onbeforeunload = function () {
         var submitted = localStorage.getItem('form_submitted', 'false')
-        console.log(! all_inputs_blank(form), submitted != 'true')
-        if (! all_inputs_blank(form) && submitted != 'true') {
+        var created_tags = document.getElementById('created-tags').getElementsByTagName('button')
+        console.log(! all_inputs_blank(form), submitted != 'true', created_tags.length > 0)
+        if ((! all_inputs_blank(form) || created_tags.length > 0) && submitted != 'true' ) {
             return "";
         }
     };

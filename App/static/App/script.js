@@ -56,9 +56,7 @@ function seperate_tags(element) {
         if (input_value[i] == ',') {
             tag = input_value.slice(0, i)
             element.value = ''
-            if (tag.length > 2) {
-                create_tag(tag)
-            }
+            create_tag(tag)
             break
         }
     }
@@ -70,7 +68,7 @@ function update_textarea_chars(textarea) {
     var index = all_textareas.indexOf(textarea)
     var all_textarea_char_displays = document.getElementsByClassName('textarea-chars-count')
     var char_display = all_textarea_char_displays[index]
-    
+
     var limit = char_display.innerHTML.split('/')[1]
     char_display.innerHTML = `${textarea.value.length} / ${limit}`
 }
