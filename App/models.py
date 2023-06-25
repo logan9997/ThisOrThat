@@ -17,10 +17,10 @@ class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=MAX_TITLE_LENGTH)
-    main_description = models.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH)
-    # + 100 to account for \r, \n inside textarea inputs
-    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH + 100, null=True, blank=True)
-    description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True, blank=True)
+    # + 100, 50 to account for \r, \n inside textarea inputs
+    main_description = models.CharField(max_length=MAX_MAIN_DESCRIPTION_LENTGH  + 100)
+    description_one = models.CharField(max_length=MAX_DESCRIPTION_LENGTH + 50, null=True, blank=True)
+    description_two = models.CharField(max_length=MAX_DESCRIPTION_LENGTH + 50, null=True, blank=True)
     image_one = models.ImageField(null=True, blank=True, upload_to='images/')
     image_two = models.ImageField(null=True, blank=True, upload_to='images/')
     button_one_label = models.CharField(max_length=MAX_BUTTON_LABEL_LENGTH)
