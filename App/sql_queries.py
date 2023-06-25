@@ -119,7 +119,7 @@ class Post(Query):
     def get_comments(self, user_id, post_id):
         sql=f'''
             SELECT comment, CO.comment_id, date_posted, US.user_id, username, (
-                SELECT option 
+                SELECT vote_option 
                 FROM "App_commentvote" CV 
                 WHERE user_id = {user_id}
                     AND CV.comment_id = CO.comment_id
@@ -127,12 +127,12 @@ class Post(Query):
                 (
                     SELECT COUNT(*) 
                     FROM "App_commentvote" CV 
-                    WHERE option='Up' 
+                    WHERE vote_option='Up' 
                         AND CV.comment_id = CO.comment_id
                 ) - (
                     SELECT COUNT(*) 
                     FROM "App_commentvote" CV 
-                    WHERE option='Down' 
+                    WHERE vote_option='Down' 
                     AND CV.comment_id = CO.comment_id
                 )
             ) AS "votes"
@@ -156,12 +156,12 @@ class Home(Query):
                 (
                     SELECT COUNT(*) 
                     FROM "App_commentvote" CV 
-                    WHERE option='Up' 
+                    WHERE vote_option='Up' 
                         AND CV.comment_id = CO.comment_id
                 ) - (
                     SELECT COUNT(*) 
                     FROM "App_commentvote" CV 
-                    WHERE option='Down' 
+                    WHERE vote_option='Down' 
                     AND CV.comment_id = CO.comment_id
                 )
             ) AS "votes"
