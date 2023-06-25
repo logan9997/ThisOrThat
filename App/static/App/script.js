@@ -64,6 +64,17 @@ function seperate_tags(element) {
     }
 }
 
+function update_textarea_chars(textarea) {
+    var all_textareas = document.getElementsByTagName('textarea')
+    all_textareas = Array.prototype.slice.call(all_textareas)
+    var index = all_textareas.indexOf(textarea)
+    var all_textarea_char_displays = document.getElementsByClassName('textarea-chars-count')
+    var char_display = all_textarea_char_displays[index]
+    
+    var limit = char_display.innerHTML.split('/')[1]
+    char_display.innerHTML = `${textarea.value.length} / ${limit}`
+}
+
 function remove_tag_param() {
     var newURL = location.href.split("?")[0];
     window.history.pushState('object', document.title, newURL);
@@ -141,10 +152,18 @@ function preview_uploaded_image(event, option) {
     }
 }
 
+function is_textarea_maxlength_valid(textarea) {
+    var maxlength = textarea.getAttribute('maxlength_value')
+    if (textarea.value.length > maxlength) {
+        textarea.value = textarea.value.slice(0, maxlength)
+    }
+}
+
 function validate_post_create_input(form) {
     var inputs = []
+    var textareas = form.getElementsByTagName('textarea')
     inputs.push(...form.getElementsByTagName('input'))
-    inputs.push(...form.getElementsByTagName('textarea'))
+    inputs.push(...textareas)
 
     var error_msg = ''
     var submit_button = document.getElementById('submit-post')
@@ -153,7 +172,7 @@ function validate_post_create_input(form) {
         'created-tags'
     ).getElementsByTagName('button')
     var tags_input = document.getElementById('tags-input')
-    
+
     for (let i = 0; i < inputs.length; i ++) {
         if (
             (inputs[i].required && inputs[i].value.length < 1 && inputs[i].id != 'tags-input') 
