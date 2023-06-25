@@ -1,6 +1,3 @@
-import requests
-import json
-
 from password_strength import PasswordPolicy
 from django.db.models import Model
 from django.forms import Form
@@ -12,7 +9,6 @@ from .config import (
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_TAG_LENGTH, 
     MAX_MAIN_DESCRIPTION_LENTGH
 )
-from environment_manager import Manager
 
 class FormRestrictions:
 
@@ -135,13 +131,6 @@ def page_boundaires(page:int, max_pages:int) -> int:
         return max_pages
     return page
 
-def text_filter(text) -> str:
-    '''
-    Filter out any profanities from text inputs 
-    '''
-    api_url = f'https://api.api-ninjas.com/v1/profanityfilter?text={text}'
-    response = requests.get(api_url, headers={'X-Api-Key': Manager().get_key('TEXT_FILTER_API_KEY')})
-    return json.loads(response.text).get('censored')
 
 def is_image_file_extension_valid(image_path:str) -> bool:
     '''
