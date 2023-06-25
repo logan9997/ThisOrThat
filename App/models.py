@@ -53,6 +53,6 @@ class CommentVote(models.Model):
     comment_vote_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    option = models.CharField(max_length=4, choices=(
+    vote_option = models.CharField(max_length=4, choices=(
         ('Up', 'Up'), ('Down', 'Down')
     ))
