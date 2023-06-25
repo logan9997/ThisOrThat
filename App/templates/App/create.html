@@ -19,8 +19,11 @@
 
         <div id="main-description-container" class="create-post-section">
             <label for="main-description">Main Description *</label>
-            <textarea required class="description-input" name="main_description" maxlength="{{input_restrictions.main_description_max_length}}">{{edit_post_values.main_description}}</textarea>
+            <textarea oninput="is_textarea_maxlength_valid(this), update_textarea_chars(this)" maxlength_value="{{input_restrictions.main_description_max_length}}" 
+            required class="description-input" name="main_description">{{edit_post_values.main_description}}</textarea>
+            <div class="textarea-chars-count">0 / {{input_restrictions.main_description_max_length}}</div>
         </div>
+        
 
         <input type="hidden" name="remove_image_one" id="remove_image_one">
         <input type="hidden" name="remove_image_two" id="remove_image_two">
@@ -58,9 +61,12 @@
                 <div class="description-container">
                     <label for="description_{{option}}">Description {{option}}</label>
                     {% with sub_description='description_'|add:option %}
-                    <textarea maxlength="{{input_restrictions.description_max_length}}" 
-                    class="description-input" name="description_{{option}}">{{edit_post_values|get:sub_description|add:''}}</textarea>
+                    <textarea 
+                        maxlength_value="{{input_restrictions.description_max_length}}" 
+                        oninput="is_textarea_maxlength_valid(this), update_textarea_chars(this)"
+                        class="description-input" name="description_{{option}}">{{edit_post_values|get:sub_description|add:''}}</textarea>
                     {% endwith %}
+                    <div class="textarea-chars-count">0 / {{input_restrictions.description_max_length}}</div>
                 </div>
 
             </div>
@@ -102,11 +108,9 @@
 <script>
     window.onload = function() {
         var edit_tags = document.getElementById('edit-tags')
-        console.log(edit_tags)
         if (edit_tags != null) {
             var edit_tags = JSON.parse(edit_tags.textContent)
             edit_tags = edit_tags.split(', ')
-            console.log(edit_tags)
             for (let i = 0; i < edit_tags.length; i ++) {
                 create_tag(edit_tags[i])
             }
@@ -114,6 +118,11 @@
 
         localStorage.setItem('form_submitted', 'false')
         validate_post_create_input(document.getElementById('create-post-form'))
+        
+        var textareas = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textareas.length; i ++) {
+            update_textarea_chars(textareas[i])
+        }
 
         const options = ['one', 'two']
         for (let i = 0; i < 2; i ++) {
@@ -129,6 +138,7 @@
 
     window.onbeforeunload = function () {
         var submitted = localStorage.getItem('form_submitted', 'false')
+        console.log(! all_inputs_blank(form), submitted != 'true')
         if (! all_inputs_blank(form) && submitted != 'true') {
             return "";
         }
