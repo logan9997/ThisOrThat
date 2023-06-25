@@ -56,3 +56,7 @@ def get(_dict:dict, params:str):
         return_value = params.split(',')[1]
         return _dict.get(key, return_value)
     return _dict.get(params)
+
+@register.filter
+def percentage_diff(num1, num2):
+    return round(num1 / (num1 + num2) * 100, 2)
