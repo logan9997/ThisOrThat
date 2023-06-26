@@ -13,13 +13,13 @@
 
     <div class="options-container">
         <div id="option-one" class="options">
-            
+
+            {% if post.image_one != '' and post.image_one != None or post.image_two != '' and post.image_two != None %}
             <div class="image-container">
                 <div class="empty-image-box"></div>
-                {% if post.image_one != '' and post.image_one != None %}
                 <img class="preview-image" src="{{post.image_one}}">
-                {% endif %}  
             </div>     
+            {% endif %}  
              
             {% if post.description_one != None %}    
             <p class="description">{{post.description_one}}</p>
@@ -29,13 +29,12 @@
         <div class="border-line"></div>
 
         <div id="option-two" class="options">
-            
+            {% if post.image_one != '' and post.image_one != None or post.image_two != '' and post.image_two != None %}            
             <div class="image-container">
                 <div class="empty-image-box"></div>
-                {% if post.image_two != '' and post.image_two != None %}
                 <img class="preview-image" src="{{post.image_two}}">
-                {% endif %}
             </div>
+            {% endif %}
             
             {% if post.description_two != None %}
             <p class="description">{{post.description_two}}</p>
