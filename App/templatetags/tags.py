@@ -57,6 +57,9 @@ def get(_dict:dict, params:str):
         return _dict.get(key, return_value)
     return _dict.get(params)
 
+
 @register.filter
 def percentage_diff(num1, num2):
+    if num1 + num2 == 0:
+        return 50.0
     return round(num1 / (num1 + num2) * 100, 2)
