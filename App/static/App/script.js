@@ -51,13 +51,24 @@ function create_tag(tag) {
 function seperate_tags(element) {
     var input_value = element.value;
     var tag = null;
+    var created_tags_container = document.getElementById('created-tags')
+    var created_tags = created_tags_container.getElementsByTagName('button')
 
     for (let i = 0; i < input_value.length; i ++) {
         if (input_value[i] == ',') {
             tag = input_value.slice(0, i)
+
+            var unique_tag = true
+            for (let j = 0; j < created_tags.length; j ++) {
+                if (tag == created_tags[j].innerHTML) {
+                    unique_tag = false
+                    break
+                }
+            }
+            if (unique_tag) {
+                create_tag(tag)
+            }
             element.value = ''
-            create_tag(tag)
-            break
         }
     }
 }
@@ -179,10 +190,10 @@ function validate_post_create_input(form) {
             error_msg = 'Please fill in all required fields (*)'
         }
         if (created_tags.length >= 5) {
-            tags_input.disabled = true
+            tags_input.readOnly = true
             tags_input.placeholder = 'Maximum of 5 tags. Click tags to remove them'
         } else {
-            tags_input.disabled = false
+            tags_input.readOnly = false
             tags_input.placeholder = "Seperate tags with commas, eg : 'sport,'"
         }
     }

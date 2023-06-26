@@ -137,9 +137,9 @@
     var form = document.getElementById('create-post-form')
 
     window.onbeforeunload = function () {
+        console.log(document.getElementById('created-tags').childNodes)
         var submitted = localStorage.getItem('form_submitted', 'false')
         var created_tags = document.getElementById('created-tags').getElementsByTagName('button')
-        console.log(! all_inputs_blank(form), submitted != 'true', created_tags.length > 0)
         if ((! all_inputs_blank(form) || created_tags.length > 0) && submitted != 'true' ) {
             return "";
         }
