@@ -97,8 +97,8 @@ nav ul li {
 
 .activity-h2 {
     text-align: center;
-    box-shadow: 0.5rem 0.5rem purple;
-    border: 0.1rem purple solid;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
+    border: 0.1rem rgb(0, 255, 255) solid;
     width: 100%;
     background-color: white;
 }
@@ -114,7 +114,7 @@ nav ul li {
 
 #info h3 {
     text-align: center;
-    background-color: purple;
+    background-color: rgb(0, 255, 255);
     margin: 0rem;
     padding: 0.2rem;
 }
@@ -129,8 +129,8 @@ nav ul li {
 .info-block, #start-searching {
     width: 45%;
     height: 60%;
-    border: 0.1rem purple solid;
-    box-shadow: 0.5rem 0.5rem purple;
+    border: 0.1rem rgb(0, 255, 255) solid;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
     transition: all 1s ease-in-out;
     background-color: white;
 }
@@ -174,8 +174,8 @@ nav ul li {
 
 #create-post-heading {
     text-align: center;
-    border: 0.1rem purple solid;
-    box-shadow: 0.5rem 0.5rem purple;
+    border: 0.1rem rgb(0, 255, 255) solid;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
     width: 50%;
     margin: auto;
     background-color: white;
@@ -185,7 +185,7 @@ nav ul li {
     display: flex;
     flex-direction: row;
     min-height: 36rem;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
 }
 
 .create-post-section {
@@ -228,7 +228,7 @@ nav ul li {
 
 .image-buttons-container > * {
     width: 10rem;
-    border: 0.1rem purple solid;
+    border: 0.1rem rgb(0, 255, 255) solid;
     border-radius: 0.5rem;
     background-color: white;
     margin: 0.25rem auto;
@@ -280,7 +280,7 @@ nav ul li {
 #main-description-container {
     display: flex;
     flex-direction: column;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
     padding-bottom: 1.5rem;
 }
 
@@ -374,10 +374,10 @@ nav ul li {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
-    box-shadow: 0.5rem 0.5rem purple;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
     min-width: 10%;
     max-width: 30%;
-    border: 0.1rem solid purple;
+    border: 0.1rem solid rgb(0, 255, 255);
     background-color: white;
 }
 
@@ -445,7 +445,7 @@ nav ul li {
 
 #posts-container {
     background-color: whitesmoke;
-    box-shadow: 0.5rem 0.5rem 0.5rem purple;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgb(0, 255, 255);
 }
 
 /* POST */
@@ -458,8 +458,8 @@ nav ul li {
 }
 
 #comments-header {
-    box-shadow: 0.5rem 0.5rem purple;
-    border: 0.1rem purple solid;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
+    border: 0.1rem rgb(0, 255, 255) solid;
     padding-left: 1rem;
     background-color: white;
 }
@@ -503,7 +503,7 @@ nav ul li {
     flex-direction: row;
     justify-content: space-between;
     height: 6rem;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
     overflow: hidden;
     background-color: white;
 }
@@ -563,10 +563,10 @@ nav ul li {
     margin: auto;
     display: flex;
     flex-direction: column;
-    box-shadow: 0.5rem 0.5rem 0.5rem purple;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgb(0, 255, 255);
     border-radius: 1rem;
-    border-left: 0.1rem purple solid;
-    border-top: 0.1rem purple solid;
+    border-left: 0.1rem rgb(0, 255, 255) solid;
+    border-top: 0.1rem rgb(0, 255, 255) solid;
     justify-content: space-between;
     background-color: white;
 }
@@ -579,7 +579,7 @@ nav ul li {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     background-color: whitesmoke;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
 }
 
 .edit-delete-form {
@@ -600,14 +600,14 @@ nav ul li {
     white-space: pre-line;
     overflow-y: auto;
     height: 10rem;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
 }
 
 .post-container .options-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
     padding-bottom: 1rem;
     width: 80%;
     margin: auto;
@@ -619,7 +619,7 @@ nav ul li {
 }
 
 .border-line {
-    border: 0.05rem purple solid;
+    border: 0.05rem rgb(0, 255, 255) solid;
 }
 
 .post-container .description {
@@ -711,7 +711,7 @@ border-radius: 1rem;
     flex-direction: row;
     justify-content: space-around;
     text-align: center;
-    border-bottom: 0.1rem purple solid;
+    border-bottom: 0.1rem rgb(0, 255, 255) solid;
 }
 
 .post-preview:nth-child(even) {
@@ -743,11 +743,16 @@ border-radius: 1rem;
 /* LOGIN / SIGNUP */
 #login-main h2 {
     text-align: center;
+    box-shadow: 0.5rem 0.5rem rgb(0, 255, 255);
+    border: 0.1rem rgb(0, 255, 255) solid;
+    background-color: white;
+    width: 40%;
+    margin: auto;
 }
 
 #login-form {
     width: 40%;
-    height: 60vh;
+    height: 30vh;
     margin:2rem auto;
     display: flex;
     flex-direction: column;
@@ -763,4 +768,9 @@ border-radius: 1rem;
 #login-form input[type=submit] {
     width: 30%;
     margin: 0 auto;
+}
+
+#login-error-msg {
+    text-align: center;
+    color: red;
 }
