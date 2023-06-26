@@ -13,25 +13,33 @@
 
     <div class="options-container">
         <div id="option-one" class="options">
-            {% if post.image_one != '' %}
+            
             <div class="image-container">
                 <div class="empty-image-box"></div>
+                {% if post.image_one != '' and post.image_one != None %}
                 <img class="preview-image" src="{{post.image_one}}">
+                {% endif %}  
             </div>     
-            {% endif %}       
+             
+            {% if post.description_one != None %}    
             <p class="description">{{post.description_one}}</p>
+            {% endif %}
         </div>
 
         <div class="border-line"></div>
 
         <div id="option-two" class="options">
-            {% if post.image_two != '' %}
+            
             <div class="image-container">
                 <div class="empty-image-box"></div>
+                {% if post.image_two != '' and post.image_two != None %}
                 <img class="preview-image" src="{{post.image_two}}">
+                {% endif %}
             </div>
-            {% endif %}
+            
+            {% if post.description_two != None %}
             <p class="description">{{post.description_two}}</p>
+            {% endif %}
         </div>
     </div>
 
@@ -47,16 +55,16 @@
                 {% csrf_token %}
                 <button {% if current_vote == '1' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="1">{{post.button_one_label}}</button>
                 <p class="vote-label">- Vote -</p>
-                <button {% if current_vote == '2' %}style="background-color:green;"{% endif %} name="vote_option" type="submit" value="2">{{post.button_two_label}}</button>
+                <button {% if current_vote == '2' %}style="background-color:red;"{% endif %} name="vote_option" type="submit" value="2">{{post.button_two_label}}</button>
             </form>
 
             <div id="vote-results">
-                <p class="total-votes" id="option-one-count">{{post.option_one_votes}}</p>
+                <p class="total-votes" id="option-one-count">{{post.option_one_votes|percentage_diff:post.option_two_votes}}%</p>
                 <div id="result-bar-container">
                     <div id="result-bar-one"></div>
                     <div id="result-bar-two"></div>
                 </div>
-                <p class="total-votes" id="option-two-count">{{post.option_two_votes}}</p>
+                <p class="total-votes" id="option-two-count">{{post.option_two_votes|percentage_diff:post.option_one_votes}}%</p>
             </div>
         {% endif %}
         <p class="date-posted">{{post.date_posted}}</p>
