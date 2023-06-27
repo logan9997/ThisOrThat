@@ -8,6 +8,9 @@ import os
 
 def post(request, post_id):
 
+    if len(Post.objects.filter(post_id=post_id)) == 0:
+        return redirect('home')
+
     user_id = request.session.get('user_id', -1)
 
     #find row where user has voted on this post if exists
