@@ -8,7 +8,7 @@ import os
 def create(request, post_id=None):
 
     user_id = request.session.get('user_id', -1)
-    if user_id == -1:
+    if user_id == -1 or len(Post.objects.filter(post_id=post_id)) == 0:
         return redirect('home')
 
     # if user is editting a post, get the values from the post to set as values
