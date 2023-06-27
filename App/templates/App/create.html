@@ -25,8 +25,8 @@
         </div>
         
 
-        <input type="hidden" name="remove_image_one" id="remove_image_one">
-        <input type="hidden" name="remove_image_two" id="remove_image_two">
+        <input type="hidden" name="remove_image_one" id="remove-image-one">
+        <input type="hidden" name="remove_image_two" id="remove-image-two">
 
 
         <div id="images-descriptions-container" class="create-post-section">
@@ -36,8 +36,11 @@
 
                 <div class="image-buttons-container">
                     <input accept="image/*" oninput="
+                    console.log(this.value)
                     preview_uploaded_image(event, '{{option}}'), 
-                    show_remove_image_button('{{option}}')"
+                    show_remove_image_button('{{option}}'),
+                    change_element_value('remove-image-{{option}}', '')
+                    "
                     id="image-{{option}}-input" type="file" name="image_{{option}}">
                     <label onclick="click_file_input('{{option}}')" class="upload-image-label" for="image_{{option}}">Upload Image</label>
                     <button
@@ -46,7 +49,7 @@
                             change_element_display(`remove-image-{{option}}-button`, 'none'), 
                             remove_element_attribute(`image-{{option}}-preview`, 'src'),
                             remove_element_attribute(`image-{{option}}-input`, 'value'),
-                            change_element_value('{{option}}')" 
+                            change_element_value('remove-image-{{option}}', 'REMOVE')" 
                         type="button">Remove Image
                     </button>
                 </div>

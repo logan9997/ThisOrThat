@@ -234,9 +234,9 @@ function style_textareas_when_scroll_bar_visible() {
     }
 }
 
-function change_element_value(option) {
-    var hidden_input = document.getElementById(`remove_image_${option}`)
-    hidden_input.value = 'REMOVE'
+function change_element_value(element, value) {
+    var hidden_input = document.getElementById(element)
+    hidden_input.value = value
 }
 
 function count_sub_string(string, sub_string) {
