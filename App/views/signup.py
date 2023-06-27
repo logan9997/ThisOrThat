@@ -5,6 +5,7 @@ from ..utils import (
     is_password_strong_enough, get_field_length_error, 
     FormRestrictions
 )
+from ..config import WEAK_PASSWORD_MSG
 
 def signup(request):
 
@@ -19,7 +20,7 @@ def signup(request):
             conditons = {
                 len(User.objects.filter(username=username)) == 0: 'Username Unavailable',
                 password == confirm_password: 'Passwords do not match',
-                is_password_strong_enough(password): 'Password does not meet requirements'
+                is_password_strong_enough(password): WEAK_PASSWORD_MSG
             }
 
             if all(conditons.keys()):
