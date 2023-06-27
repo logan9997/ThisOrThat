@@ -178,14 +178,3 @@ def is_password_strong_enough(password:str) -> bool:
     if test_result == []:
         return True
     return False
-
-#POSSIBLY REDUNDANT
-
-def insert_spaces_in_tag_string(tag_string:str) -> str:
-    '''
-    Adds spaces after each comman in tag_string for readability on the UI
-    '''
-    tag_string = ''.join([
-        char if char != ',' else f'{char} ' for char in tag_string
-    ])
-    return tag_string
