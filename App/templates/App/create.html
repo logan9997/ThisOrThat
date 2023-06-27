@@ -127,7 +127,8 @@
         const options = ['one', 'two']
         for (let i = 0; i < 2; i ++) {
             var img = document.getElementById(`image-${options[i]}-preview`)
-            if (img.src != null && img.src.slice(img.src.length-4, img.src.length) != 'None') {
+            if (img.src != null && count_sub_string(img.src, '/') > 4) {
+                console.log('showing')
                 show_remove_image_button(options[i])
             }
         }
