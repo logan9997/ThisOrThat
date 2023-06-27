@@ -221,12 +221,13 @@ nav ul li {
 
 .image-buttons-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     margin-bottom: 1rem;
 }
 
 .image-buttons-container > * {
+    all: unset;
     width: 10rem;
     border: 0.1rem rgb(0, 255, 255) solid;
     border-radius: 0.5rem;
@@ -240,7 +241,6 @@ nav ul li {
 }
 
 .remove-image-button {
-    width: 10rem;
     display: none;
 }
 
