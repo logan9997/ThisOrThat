@@ -29,7 +29,9 @@ def search(request):
     current_page = request.GET.get('page', 1)
     current_page = page_boundaires(current_page, len(pages))
 
-    posts = posts[(current_page-1)*MAX_POSTS_PER_PAGE : current_page*MAX_POSTS_PER_PAGE]
+    posts = posts[
+        (current_page-1)*MAX_POSTS_PER_PAGE : current_page*MAX_POSTS_PER_PAGE
+    ]
 
     context = {
         'MAX_SEARCH_SUGGESTIONS': MAX_SEARCH_SUGGESTIONS,

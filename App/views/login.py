@@ -27,7 +27,7 @@ def login(request):
 
     context = {
         'title': 'Login',
-        'login_error_msg':login_error_msg,
+        'login_error_msg': login_error_msg,
         'input_restrictions': FormRestrictions.login_signup()
     }
     return render(request, 'App/login.html', context=context)
