@@ -20,7 +20,9 @@
             {% endfor%}
             </div>
         </div>
-        {% else %}
+        {% endif %}
+
+        {% if posts|length == 0 and comments|length == 0 %}
         <div id="get-started">
             <h2 class="activity-h2">Get Started</h2>
             <div id="info">
