@@ -8,7 +8,10 @@ import os
 def create(request, post_id=None):
 
     user_id = request.session.get('user_id', -1)
-    if user_id == -1 or len(Post.objects.filter(post_id=post_id)) == 0:
+    #return to home is post_id does not exist
+    if user_id == -1 or (
+        len(Post.objects.filter(post_id=post_id)) == 0 and post_id != None
+    ):
         return redirect('home')
 
     # if user is editting a post, get the values from the post to set as values
@@ -24,6 +27,7 @@ def create(request, post_id=None):
         form = CreatePost(request.POST, request.FILES)
         if form.is_valid():
 
+            #remove images redundant data from form 
             new = {}
             for k, v in form.cleaned_data.items():
                 if 'remove_image' in k and v == 'REMOVE':
@@ -49,8 +53,6 @@ def create(request, post_id=None):
                 post_id = new_post.post_id
 
             return redirect('post', post_id)
-        else:
-            print(form.errors)
 
     context = {
         'input_restrictions': FormRestrictions.create_post(),
