@@ -78,10 +78,6 @@ class Post(Query):
         return self.select(sql, format=True, fields=fields)[0]
 
     def get_posts(self, **kwargs):
-        '''
-        Return a list of all posts, 
-        ordered by : count of votes (DESC), date_posted (DESC)
-        '''        
         sql=f'''
             SELECT PO.post_id, description_one, description_two, image_one, image_two,
             status, PO.date_posted, tags, PO.user_id, title, main_description,
