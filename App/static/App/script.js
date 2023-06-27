@@ -238,3 +238,14 @@ function change_element_value(option) {
     var hidden_input = document.getElementById(`remove_image_${option}`)
     hidden_input.value = 'REMOVE'
 }
+
+function count_sub_string(string, sub_string) {
+    var count = 0
+    console.log(string, sub_string)
+    for (let i = 0; i < string.length ; i ++) {
+        if (string[i] == sub_string) {
+            count += 1
+        }
+    }
+    return count
+}
