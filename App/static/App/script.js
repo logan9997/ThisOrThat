@@ -65,7 +65,7 @@ function seperate_tags(element) {
                     break
                 }
             }
-            if (unique_tag) {
+            if (unique_tag && tag != ' '.repeat(tag.length)) {
                 create_tag(tag)
             }
             element.value = ''
