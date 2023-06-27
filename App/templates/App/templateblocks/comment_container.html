@@ -6,7 +6,7 @@
         {% csrf_token %}
         <input {% if comment.current_vote == 'Up' %}style="background-color:green;"{% endif %} type="submit" value="Up" name="vote_option">
         <p>{{comment.votes}}</p>
-        <input {% if comment.current_vote == 'Down' %}style="background-color:green;"{% endif %} type="submit" value="Down" name="vote_option">
+        <input {% if comment.current_vote == 'Down' %}style="background-color:red;"{% endif %} type="submit" value="Down" name="vote_option">
     </form>
     {% else %}
     <p class="votes">Votes : {{comment.votes}}</p>
