@@ -11,14 +11,14 @@
         {% csrf_token %}
         <div class="create-post-section">
             <div id="title-container">
-                <label for="title">Title *</label>
+                <label for="title">Title (*)</label>
                 <input value="{{edit_post_values.title}}" required maxlength="{{input_restrictions.title_max_length}}" onfocus="remove_placeholder_text(this)" 
                 id="title-input" type="text" name="title">
             </div>
         </div>
 
         <div id="main-description-container" class="create-post-section">
-            <label for="main-description">Main Description *</label>
+            <label for="main-description">Main Description (*)</label>
             <textarea oninput="is_textarea_maxlength_valid(this), update_textarea_chars(this)" maxlength_value="{{input_restrictions.main_description_max_length}}" 
             required class="description-input" name="main_description">{{edit_post_values.main_description}}</textarea>
             <div class="textarea-chars-count">0 / {{input_restrictions.main_description_max_length}}</div>
@@ -78,13 +78,13 @@
         </div>
 
         <div id="button-labels-container">
-            <input required placeholder="Vote value 1 *" type="text" name="button_one_label" value="{{edit_post_values.button_one_label}}" class="button-label">
-            <input required placeholder="Vote value 2 *" type="text" name="button_two_label" value="{{edit_post_values.button_two_label}}" class="button-label">
+            <input required placeholder="Option One Label (*)" type="text" name="button_one_label" value="{{edit_post_values.button_one_label}}" class="button-label">
+            <input required placeholder="Option Two Label (*)" type="text" name="button_two_label" value="{{edit_post_values.button_two_label}}" class="button-label">
         </div>
 
         <div id="tags-container" class="create-post-section">
             <div id="tags-input-container">
-                <label for="tags">Tags *</label>
+                <label for="tags">Tags (*)</label>
                 <input maxlength="{{input_restrictions.tag_max_length}}" oninput="seperate_tags(this)" 
                 id="tags-input" type="text" name="tags" placeholder="(Seperate tags with commas, eg : 'sport,')">
             </div>
