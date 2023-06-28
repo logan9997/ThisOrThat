@@ -13,7 +13,7 @@ def post(request, post_id):
 
     user_id = request.session.get('user_id', -1)
 
-    #find row where user has voted on this post if exists
+    #find row where user has voted on this post, if exists
     current_vote = PostVote.objects.filter(
         user_id=user_id, post_id=post_id
     )
