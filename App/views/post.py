@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.db.models import F
 from ..models import Post, PostVote
 from ..forms import ModifyPost
 from ..sql_queries import Post as PostQuery
