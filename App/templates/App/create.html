@@ -35,8 +35,7 @@
             <div id="option-{{option}}" class="image-description-contianer">
 
                 <div class="image-buttons-container">
-                    <input accept="image/*" oninput="
-                    console.log(this.value)
+                    <input accept="image/png, image/jpeg, image/jpg" oninput="
                     preview_uploaded_image(event, '{{option}}'), 
                     show_remove_image_button('{{option}}'),
                     change_element_value('remove-image-{{option}}', '')
