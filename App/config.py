@@ -19,11 +19,12 @@ MIN_PASSWORD_LENGTH = 8
 MIN_UPPERCASE_CHARS = 1
 MIN_SPECIAL_CHARS = 1
 
-WEAK_PASSWORD_MSG = f'''
-    Password does not meet requirements : Min ({MIN_PASSWORD_LENGTH}) Characters,
-    Min ({MIN_SPECIAL_CHARS}) Special Characters, Min ({MIN_UPPERCASE_CHARS}) Uppercase
-    Characters
-'''
+PASSWORD_REQUIREMENTS = [
+    'Password : ',
+    f'Min ({MIN_PASSWORD_LENGTH}) Characters',
+    f'Min ({MIN_SPECIAL_CHARS}) Special Characters', 
+    f'Min ({MIN_UPPERCASE_CHARS}) Uppercase Characters'
+]
 
 #GENERAL
 MAX_SEARCH_SUGGESTIONS = 12

@@ -770,6 +770,12 @@ border-radius: 1rem;
     margin: 0 auto;
 }
 
+#password-requirements {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
 #login-error-msg {
     text-align: center;
     color: red;

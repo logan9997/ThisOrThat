@@ -5,7 +5,7 @@ from ..utils import (
     is_password_strong_enough, get_field_length_error, 
     FormRestrictions
 )
-from ..config import WEAK_PASSWORD_MSG
+from ..config import PASSWORD_REQUIREMENTS
 
 def signup(request):
 
@@ -20,7 +20,7 @@ def signup(request):
             conditons = {
                 len(User.objects.filter(username=username)) == 0: 'Username Unavailable',
                 password == confirm_password: 'Passwords do not match',
-                is_password_strong_enough(password): WEAK_PASSWORD_MSG
+                is_password_strong_enough(password): 'Password does not meet requirements'
             }
 
             if all(conditons.keys()):
@@ -39,6 +39,7 @@ def signup(request):
 
     context = {
         'signup_error_msg': signup_error_msg,
+        'password_requirements': PASSWORD_REQUIREMENTS,
         'input_restrictions': FormRestrictions.login_signup()
     }
     return render(request, 'App/signup.html', context=context)

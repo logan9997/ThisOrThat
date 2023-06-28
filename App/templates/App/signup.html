@@ -25,6 +25,12 @@
         <input type="submit" value="Sign Up!">
     </form>
 
+    <div id="password-requirements">
+        {% for req in password_requirements %}
+        <span>{{req}}</span>
+        {% endfor %}
+    </div>
+
     <p id="login-error-msg">{{signup_error_msg}}</p>
 
 </section>
