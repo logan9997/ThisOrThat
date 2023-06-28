@@ -1,22 +1,11 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section class="main" id="login-main">
 
-    <h2>Login</h2>
+    {% include 'App/templateblocks/login_signup.html' with type='login' %}
 
-    <form id="login-form" action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="label-input-container">
-            <label for="username">Username</label>
-            <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
-        </div>
-
-        <div class="label-input-container">
-            <label for="password">Password</label>
-            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
-        </div>
-        <input type="submit" value="Login!">
+    </div>
+    <input type="submit" value="Login!">
     </form>
 
     <div id="login-error-msg-container">

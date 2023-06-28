@@ -1,37 +1,28 @@
 {% extends 'App/base.html' %}
 
 {% block content %}
-<section class="main" id="login-main">
 
-    <h2>Sign Up</h2>
-
-    <form id="login-form" action="{% url 'signup' %}" method="POST">
-        {% csrf_token %}
-        <div class="label-input-container">
-            <label for="username">Username</label>
-            <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
-        </div>
-
-        <div class="label-input-container">
-            <label for="password">Password</label>
-            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
-        </div>
-
+    {% include 'App/templateblocks/login_signup.html' with type='signup' %}
         <div class="label-input-container">
             <label for="confirm_password">Confirm Password</label>
-            <input maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
+            <div>
+                <input id="confirm-password-input" maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
+                <button onmousedown="document.getElementById('confirm-password-input').type = 'text'" 
+                onmouseup="document.getElementById('confirm-password-input').type = 'password'" type="button">Show</button>
+            </div>
         </div>
-
+        
+        </div>
         <input type="submit" value="Sign Up!">
     </form>
 
-    <div id="password-requirements">
-        {% for req in password_requirements %}
-        <span>{{req}}</span>
-        {% endfor %}
-    </div>
+        <div id="password-requirements">
+            {% for req in password_requirements %}
+            <span>{{req}}</span>
+            {% endfor %}
+        </div>
 
-    <p id="login-error-msg">{{signup_error_msg}}</p>
+        <p id="login-error-msg">{{signup_error_msg}}</p>
 
 </section>
 {% endblock %}
