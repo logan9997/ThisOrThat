@@ -7,12 +7,12 @@
         {% csrf_token %}
         <div id="inputs-container">
             <div class="label-input-container">
-                <label for="username">Username</label>
+                <label for="username">Username <span>Max Chars : ({{input_restrictions.username_max_length}})</span></label>
                 <input maxlength="{{input_restrictions.username_max_length}}" type="text" name="username">
             </div>
 
             <div class="label-input-container">
-                <label for="password">Password</label>
+                <label for="password">Password <span>(Max Chars : {{input_restrictions.password_max_length}})</span></label>
                 <div>
                     <input id="password-input" maxlength="{{input_restrictions.password_max_length}}" type="password" name="password">
                     <button onmousedown="document.getElementById('password-input').type = 'text'" 

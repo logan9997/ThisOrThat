@@ -751,22 +751,40 @@ border-radius: 1rem;
 }
 
 #login-form {
-    width: 40%;
     height: 30vh;
     margin:2rem auto;
     display: flex;
     flex-direction: column;
+    height: 16rem;
+}
+
+#inputs-container {
+    margin: auto;
+    left: 1.5rem;
+    position: relative;
+}
+
+#login-form input[type=text], #login-form input[type=password] {
+    width: 10rem;
+}
+
+#login-form button {
+    width: 3rem;
 }
 
 #login-form .label-input-container {
-    width: 40%;
-    margin: 1rem auto;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
 }
 
+.label-input-container label span {
+    font-size: 0.8rem;
+    color: gray;
+}
+
 #login-form input[type=submit] {
-    width: 30%;
+    width: 10rem;
     margin: 0 auto;
 }
 
@@ -774,6 +792,7 @@ border-radius: 1rem;
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
 }
 
 #login-error-msg {

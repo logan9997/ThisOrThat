@@ -4,7 +4,7 @@
 
     {% include 'App/templateblocks/login_signup.html' with type='signup' %}
         <div class="label-input-container">
-            <label for="confirm_password">Confirm Password</label>
+            <label for="confirm_password">Confirm Password <span>(Max Chars : {{input_restrictions.password_max_length}})</span></label>
             <div>
                 <input id="confirm-password-input" maxlength="{{input_restrictions.password_max_length}}" type="password" name="confirm_password">
                 <button onmousedown="document.getElementById('confirm-password-input').type = 'text'" 
