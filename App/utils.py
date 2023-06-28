@@ -4,7 +4,7 @@ from django.forms import Form
 from .models import Comment, Post
 from django.shortcuts import redirect
 from .config import (
-    VALID_IMAGE_EXTENSIONS, MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
+    MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH,
     MIN_PASSWORD_LENGTH, MIN_SPECIAL_CHARS, MIN_UPPERCASE_CHARS,    
     MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, MAX_TAG_LENGTH, 
     MAX_MAIN_DESCRIPTION_LENTGH
@@ -130,21 +130,6 @@ def page_boundaires(page:int, max_pages:int) -> int:
     if page > max_pages:
         return max_pages
     return page
-
-
-def is_image_file_extension_valid(image_path:str) -> bool:
-    '''
-    Check if the an images contains an any valid file extension.
-    Valid image extensions saved in config.py
-    '''
-    if image_path == None:
-        return False
-
-    for extension in VALID_IMAGE_EXTENSIONS:
-        print(image_path[-len(extension):].lower(), extension)
-        if image_path[-len(extension):].lower() == extension:
-            return True
-    return False
 
 
 def get_field_length_error(error:str) -> str:
