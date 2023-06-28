@@ -18,7 +18,6 @@ class Manager():
             conn_type = 'HEROKU'
 
         if connection == 'settings':
-            
             credentials = {
                 'NAME': os.getenv(f'{conn_type}_DB_NAME'),
                 'USER': os.getenv(f'{conn_type}_DB_USER'),
